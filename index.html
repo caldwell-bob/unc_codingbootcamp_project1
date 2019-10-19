@@ -12,66 +12,77 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Navbar w/ text</a>
+    <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark bg-transparent">
+        <a class="navbar-brand" href="#">Artist Venue Search</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="#">Spotify <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Features</a>
+              <a class="nav-link" href="#">Ticket Master</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Pricing</a>
+              <a class="nav-link" href="#">Youtube</a>
             </li>
           </ul>
-          <span class="navbar-text">
-            Navbar text with an inline element
-          </span>
+          <!-- <span class="navbar-text">
+            
+          </span> -->
         </div>
       </nav>
-
+<br>
 <div class="container">
-  <div class="row">
-    <form class="col s12">
+  <div class="row inputs">
+    <form class="col s6">
       <div class="row">
-        <div class="input-field col s12">
+        <div class="input-field col s6">
           <textarea id="textarea1" class="materialize-textarea"></textarea>
           <label for="textarea1">Search for your favorite Artist!</label>
         </div>
       </div>
     </form>
-  </div>
+ 
+ 
+        <form class="col s6">
+          <div class="row">
+            <div class="input-field col s6">
+              <textarea id="textarea1" class="materialize-textarea"></textarea>
+              <label for="textarea1">Zip Code</label>
+            </div>
+          </div>
+        </form>
+    </div>
 
   <div class="row">
 <div class="col-6  artistInfo">
-
+<h3>Artist Info</h3>
 </div>
 <div class="col-1 blank">
 
 </div>
 <div class="col-4 searchbox">
-    <div class="row">
+    <h3>Recent Searches:</h3>
+    <!-- <div class="row">
             <div class="col-12 recentsearches">
 
                 </div>
-    </div>
+    </div> -->
     </div>
 
 </div>
 <div class="row">
     <div class="col-6 ticketinfo">
-
+<h3>Ticket and Venue Info</h3>
     </div>
     <div class="col-1 blank">
 
     </div>
     <div class="col-4 youtubeDisplay">
-
+<h3>Youtube</h3>
     </div>
 </div>
 

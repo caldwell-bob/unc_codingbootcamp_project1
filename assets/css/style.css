@@ -18,7 +18,7 @@ body {
 
   .searchbox {
     background-color: rgb(105,105,105, 0.4);
-    height: 100px;
+    height: 200px;
     width: 100%;
     margin: 20px;
   }
@@ -73,3 +73,18 @@ body {
     width: 100%;
     margin: 20px;
   }
+  .navbar.transparent.navbar-inverse .navbar-inner {
+    border-width: 0px;
+    -webkit-box-shadow: 0px 0px;
+    box-shadow: 0px 0px;
+    background-color: rgba(0,0,0,0.0);
+    background-image: -webkit-gradient(linear, 50.00% 0.00%, 50.00% 100.00%, color-stop( 0% , rgba(0,0,0,0.00)),color-stop( 100% , rgba(0,0,0,0.00)));
+    background-image: -webkit-linear-gradient(270deg,rgba(0,0,0,0.00) 0%,rgba(0,0,0,0.00) 100%);
+    background-image: linear-gradient(180deg,rgba(0,0,0,0.00) 0%,rgba(0,0,0,0.00) 100%);
+}
+.inputs {
+    width: 100%;
+}
+h3 {
+    color:#bdbdbd;
+}
