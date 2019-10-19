@@ -1,0 +1,27 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background-image: url("audience-band-cheering-1105666 (1).jpg");
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+
+  .seachbox {
+    background-color: rgb(105,105,105, 0.4);
+    height: 200px;
+    width: 200px;
+  }
+
+  .artistInfo {
+    background-color: rgb(105,105,105, 0.4);
+    height: 200px;
+    width: 200px;
+  }
+  .footer-copyright {
+      background-color: #bbdefb blue;
+  }
