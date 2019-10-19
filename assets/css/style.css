@@ -1,6 +1,11 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
 body {
     display: flex;
-    min-height: 100vh;
+    min-height: 100vh; 
     flex-direction: column;
     background-image: url("audience-band-cheering-1105666 (1).jpg");
     background-attachment: fixed;
@@ -11,17 +16,60 @@ body {
     flex: 1 0 auto;
   }
 
-  .seachbox {
+  .searchbox {
     background-color: rgb(105,105,105, 0.4);
-    height: 200px;
-    width: 200px;
+    height: 100px;
+    width: 100%;
+    margin: 20px;
   }
 
   .artistInfo {
     background-color: rgb(105,105,105, 0.4);
     height: 200px;
-    width: 200px;
+    width: 100%;
+    margin: 20px;
   }
   .footer-copyright {
       background-color: #bbdefb blue;
+  }
+  .page-footer {
+      opacity: 0.4;
+  } 
+  .lighten-5 {
+    opacity: 0.4;
+  }
+  .transparentBG {
+    background-color: rgba(0,0,0,0);
+  }
+  footer {
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    height: 30px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    /* overflow: hidden; */
+    text-align: center;
+    }
+  .ticketinfo {
+    background-color: rgb(105,105,105, 0.4);
+    height: 200px;
+    width: 100%;
+    margin: 20px;
+  }
+  .recentsearches {
+    background-color: rgb(105,105,105, 0.4);
+    height: 100px;
+    width: 100%;
+
+    position: absolute;
+    top: 120px;
+  }
+  .youtubeDisplay {
+    background-color: rgb(105,105,105, 0.4);
+    height: 200px;
+    width: 100%;
+    margin: 20px;
   }
