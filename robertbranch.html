@@ -47,20 +47,61 @@ $("#add-queryElement").on("click", function (event) {
   dataType: "json",
   success: function(json) {
               console.log(json);
+              
+  // var i;
+// for (i = 0; i < 5 || i < json._embedded.events.length ; i++) {
+//   console.log(json._embedded.events[i]._embedded.venues[0].name);
+//   console.log(json._embedded.events[i]._embedded.venues[0].city.name);
+//   console.log(json._embedded.events[i]._embedded.venues[0].state.name);
+//   console.log(json._embedded.events[i].dates.start.localDate);;
+// for (i = 0; i < 5 ; i++) {
 
-  console.log(json._embedded.events[0]._embedded.venues[0].name);
-  console.log(json._embedded.events[0]._embedded.venues[0].city.name);
-  console.log(json._embedded.events[0]._embedded.venues[0].state.name);
-  console.log(json._embedded.events[0].dates.start.localDate);
 
-  var venueNameDiv = $("<p>").text(json._embedded.events[0]._embedded.venues[0].name);
+  var i;
+
+  for (i = 0; i < json._embedded.events.length ; i++) {
+    if (i >= 5) {
+      return 
+    }
+  console.log(json._embedded.events[i]._embedded.venues[0].name);
+  console.log(json._embedded.events[i]._embedded.venues[0].city.name);
+  console.log(json._embedded.events[i]._embedded.venues[0].state.name);
+  console.log(json._embedded.events[i].dates.start.localDate);;
+
+  
+  // $("#outputArea" ).append(artistInput);
+  var venueNameDiv = $("<p>").text(json._embedded.events[i]._embedded.venues[0].name);
   $("#outputArea" ).append(venueNameDiv);  
-  var cityNameDiv = $("<p>").text(json._embedded.events[0]._embedded.venues[0].city.name);
+  var cityNameDiv = $("<p>").text(json._embedded.events[i]._embedded.venues[0].city.name);
   $("#outputArea" ).append(cityNameDiv);  
-  var stateNameDiv = $("<p>").text(json._embedded.events[0]._embedded.venues[0].state.name);
+  var stateNameDiv = $("<p>").text(json._embedded.events[i]._embedded.venues[0].state.name);
   $("#outputArea" ).append(stateNameDiv);  
-  var dateNameDiv = $("<p>").text(json._embedded.events[0].dates.start.localDate);
-  $("#outputArea" ).append(dateNameDiv);  
+  var dateNameDiv = $("<p>").text(json._embedded.events[i].dates.start.localDate);
+  $("#outputArea" ).append(dateNameDiv); 
+  
+
+  // var venueNameDiv = $("<p>").text(json._embedded.events[i]._embedded.venues[0].name);
+  // var cityNameDiv = $("<p>").text(json._embedded.events[i]._embedded.venues[0].city.name);
+  // var stateNameDiv = $("<p>").text(json._embedded.events[i]._embedded.venues[0].state.name);
+  // var dateNameDiv = $("<p>").text(json._embedded.events[i].dates.start.localDate);
+}
+
+
+  // console.log(json._embedded.events[0]._embedded.venues[0].name);
+  // console.log(json._embedded.events[0]._embedded.venues[0].city.name);
+  // console.log(json._embedded.events[0]._embedded.venues[0].state.name);
+  // console.log(json._embedded.events[0].dates.start.localDate);
+
+
+  // $("#outputArea" ).append(artistInput);
+  // var venueNameDiv = $("<p>").text(json._embedded.events[0]._embedded.venues[0].name);
+  // $("#outputArea" ).append(venueNameDiv);  
+  // var cityNameDiv = $("<p>").text(json._embedded.events[0]._embedded.venues[0].city.name);
+  // $("#outputArea" ).append(cityNameDiv);  
+  // var stateNameDiv = $("<p>").text(json._embedded.events[0]._embedded.venues[0].state.name);
+  // $("#outputArea" ).append(stateNameDiv);  
+  // var dateNameDiv = $("<p>").text(json._embedded.events[0].dates.start.localDate);
+  // $("#outputArea" ).append(dateNameDiv);  
   },})});
  
 //       // Looping through each result item
