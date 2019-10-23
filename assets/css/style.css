@@ -91,3 +91,22 @@ h3 {
 .table {
     color: white;
 }
+
+#textarea1 {
+  color: rgb(62, 250, 103);
+  font-size: 25px;
+}
+
+textarea:focus {
+  border-bottom: 1px solid white !important;
+  box-shadow: 0 1px 0 0 white !important;
+}
+
+label.active {
+  color: white !important;
+}
+
+#ticket-venue, #artist-info, #recent-searches, #youtube {
+  /* background-color: black; */
+  text-align: center;
+}
