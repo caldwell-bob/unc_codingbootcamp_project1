@@ -58,6 +58,7 @@ body {
     height: 400px;
     width: 100%;
     margin: 20px;
+    overflow-y: scroll;
   }
   .recentsearches {
     background-color: rgb(105,105,105, 0.4);
@@ -89,5 +90,9 @@ h3 {
     color:#bdbdbd;
 }
 .table {
+    color: white;
+    padding: 5px;
+}
+.materialize-textarea {
     color: white;
 }

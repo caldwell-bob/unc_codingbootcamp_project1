@@ -87,10 +87,11 @@ integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="ano
             <!-- The scope attribute specifies that this is a header for a column -->
             <th scope="col">Venue</th>
             <th scope="col">City</th>
+            <th scope="col">State</th>
             <th scope="col">Date</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="td">
           <tr>
             <td></td>
             <td></td>
@@ -119,3 +120,16 @@ integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="ano
 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 </body>
 </html>
+
+function displayVideo(){
+    var artistInput = $("#textarea1").val().trim();
+
+    var queryURL = "https://www.googleapis.com/youtube/v3/search?part=string&maxResults=1&q=" + artistInput + "&videoEmbeddable=true&key=[AIzaSyA_U4qoNFx9UwwBf-otulU8_OQkXUECP10]"
+    // AIzaSyA_U4qoNFx9UwwBf-otulU8_OQkXUECP10
+    $.ajax({
+    type:"GET",
+    url: queryURL,
+    async: true,
+    dataType: "json",
+    success: function(json) {
+        console.log(json)

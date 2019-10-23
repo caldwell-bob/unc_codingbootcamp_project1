@@ -1,5 +1,5 @@
 function getSearchInfo () {
-    $("#ticketinfo").empty();
+    // $(".table").empty();
     console.log("clicked");
     event.preventDefault();
     var artistInput = $("#textarea1").val().trim();
@@ -34,6 +34,7 @@ function getSearchInfo () {
     // },})});
 
     // var i;
+    $(".td").empty();
       for (var i = 0; i < json._embedded.events.length ; i++) {
         if (i >= 5) {
           return 
@@ -52,17 +53,33 @@ function getSearchInfo () {
       
     //   var dateNameDiv = $("<p>").text(json._embedded.events[i].dates.start.localDate);
     //   $(".ticketinfo").append(venueNameDiv,cityNameDiv, stateNameDiv, dateNameDiv);
-
+      
       var tBody = $("tbody");
       var tRow = $("<tr>");
       // Methods run on jQuery selectors return the selector they we run on
       // This is why we can create and save a reference to a td in the same statement we update its text
       var venueNameDiv = $("<td>").text(json._embedded.events[i]._embedded.venues[0].name);
       var cityNameDiv = $("<td>").text(json._embedded.events[i]._embedded.venues[0].city.name);
+      var stateNameDiv = $("<td>").text(json._embedded.events[i]._embedded.venues[0].state.name);
       var dateNameDiv = $("<td>").text(json._embedded.events[i].dates.start.localDate);
       // Append the newly created table data to the table row
-      tRow.append(venueNameDiv, cityNameDiv, dateNameDiv);
+      tRow.append(venueNameDiv, cityNameDiv, stateNameDiv, dateNameDiv);
       // Append the table row to the table body
       tBody.append(tRow);
+      displayVideo()
     }}})};
+
+    function displayVideo(){
+    var artistInput = $("#textarea1").val().trim();
+
+    var queryURL = "https://www.googleapis.com/youtube/v3/search?part=string&maxResults=1&q=" + artistInput + "&videoEmbeddable=true&key=[AIzaSyA_U4qoNFx9UwwBf-otulU8_OQkXUECP10]"
+    // AIzaSyA_U4qoNFx9UwwBf-otulU8_OQkXUECP10
+    $.ajax({
+    type:"GET",
+    url: queryURL,
+    async: true,
+    dataType: "json",
+    success: function(json) {
+        console.log(json)
+    }})};
     $(document).on("click", ".btn", getSearchInfo);
