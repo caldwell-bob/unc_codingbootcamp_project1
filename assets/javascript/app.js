@@ -1,5 +1,5 @@
 function getSearchInfo () {
-    $("#ticketinfo").empty();
+    
     console.log("clicked");
     event.preventDefault();
     var artistInput = $("#textarea1").val().trim();
@@ -34,6 +34,8 @@ function getSearchInfo () {
     // },})});
 
     // var i;
+
+    $(".td").empty();
       for (var i = 0; i < json._embedded.events.length ; i++) {
         if (i >= 5) {
           return 
@@ -66,3 +68,18 @@ function getSearchInfo () {
       tBody.append(tRow);
     }}})};
     $(document).on("click", ".btn", getSearchInfo);
+
+    // Attempting to add click event on enter press
+
+    var input = document.getElementById(".input-field");
+
+
+input.addEventListener("keyup", function(event) {
+
+  if (event.keyCode === 13) {
+  
+    event.preventDefault();
+    
+    document.getElementById("btn").click();
+  }
+});
