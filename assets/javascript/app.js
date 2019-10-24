@@ -61,9 +61,10 @@ function getSearchInfo () {
       // This is why we can create and save a reference to a td in the same statement we update its text
       var venueNameDiv = $("<td>").text(json._embedded.events[i]._embedded.venues[0].name);
       var cityNameDiv = $("<td>").text(json._embedded.events[i]._embedded.venues[0].city.name);
+      var stateNameDiv = $("<td>").text(json._embedded.events[i]._embedded.venues[0].state.name);
       var dateNameDiv = $("<td>").text(json._embedded.events[i].dates.start.localDate);
       // Append the newly created table data to the table row
-      tRow.append(venueNameDiv, cityNameDiv, dateNameDiv);
+      tRow.append(venueNameDiv, cityNameDiv, stateNameDiv, dateNameDiv);
       // Append the table row to the table body
       tBody.append(tRow);
     }}})};
