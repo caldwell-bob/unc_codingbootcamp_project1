@@ -120,16 +120,3 @@ integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="ano
 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 </body>
 </html>
-
-function displayVideo(){
-    var artistInput = $("#textarea1").val().trim();
-
-    var queryURL = "https://www.googleapis.com/youtube/v3/search?part=string&maxResults=1&q=" + artistInput + "&videoEmbeddable=true&key=[AIzaSyA_U4qoNFx9UwwBf-otulU8_OQkXUECP10]"
-    // AIzaSyA_U4qoNFx9UwwBf-otulU8_OQkXUECP10
-    $.ajax({
-    type:"GET",
-    url: queryURL,
-    async: true,
-    dataType: "json",
-    success: function(json) {
-        console.log(json)
