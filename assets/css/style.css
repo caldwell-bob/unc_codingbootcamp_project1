@@ -95,7 +95,15 @@ h3 {
 #textarea1 {
   color: rgb(62, 250, 103);
   font-size: 25px;
-}
+  font-family: 'Merriweather', serif;
+/* font-family: 'Noto Sans', sans-serif;
+font-family: 'Anton', sans-serif;
+font-family: 'Josefin Sans', sans-serif;
+font-family: 'Lobster', cursive;
+font-family: 'Arvo', serif;
+font-family: 'Pacifico', cursive;
+font-family: 'Staatliches', cursive; */
+}  
 
 textarea:focus {
   border-bottom: 1px solid white !important;
