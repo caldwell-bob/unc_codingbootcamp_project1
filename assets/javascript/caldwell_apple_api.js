@@ -58,7 +58,6 @@ function searchStats() {
       }
     });
 }
-
 function updateFireBaseItunesData(resultsObj) {
   database.ref("/searches").push({
     itunesSearchResults: resultsObj,
