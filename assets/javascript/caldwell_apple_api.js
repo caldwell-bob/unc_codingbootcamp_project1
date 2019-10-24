@@ -18,16 +18,52 @@ var searchCounter = 0;
 var database = firebase.database();
 var searchRef = database.ref("/searches");
 
-function updateFireBaseItunesData(resultsObj) {
-    // searchCounter +=1;
-    // database.ref("/searches").set({
-        database.ref("/searches").push({
-        itunesSearchResults: resultsObj,
-        dateAdded: firebase.database.ServerValue.TIMESTAMP
+function searchStats() {
+  console.log("searchStats function called");
+  // * grab a snapshot of the search results from DB
+  return firebase
+    .database()
+    .ref("/searches")
+    .once("value")
+    .then(function(snapshot) {
+      var numberOfRecords = snapshot.numChildren();
 
-        // highBidder: bidderName,
-        // highPrice: bidderPrice
-      });
+      var searchedArtistArray = [];
+      // * Grabs snapshot of DB
+      var searchStatsResults = snapshot.val();
+      // * This grabs the db record IDs and puts into searchIds array
+      var searchIds = Object.getOwnPropertyNames(searchStatsResults).sort();
+      // * Loop through records..grabs Artist Name and put into searchedArtistArray
+      for (var i = 0; i < searchIds.length; i++) {
+        searchedArtistArray.push(
+          searchStatsResults[searchIds[i]].itunesSearchResults.artistName
+        );
+      }
+      searchedArtistArray.sort();
+      var current = null;
+      var counter = 0;
+      for (var i = 0; i < searchedArtistArray.length; i++) {
+        if (searchedArtistArray[i] != current) {
+          if (counter > 0) {
+            document.write(current + " comes --> " + counter + " times<br>");
+          }
+          current = searchedArtistArray[i];
+          counter = 1;
+        } else {
+            counter++;
+        }
+      }
+      if (counter > 0) {
+        document.write(current + " comes --> " + counter + " times");
+      }
+    });
+}
+
+function updateFireBaseItunesData(resultsObj) {
+  database.ref("/searches").push({
+    itunesSearchResults: resultsObj,
+    dateAdded: firebase.database.ServerValue.TIMESTAMP
+  });
 }
 function callItunesApi(search) {
   var ituneSettings = {
@@ -71,15 +107,14 @@ function callItunesApi(search) {
       itunesObj.artworkUrl100 = resultsArray[x].artworkUrl100;
 
       itunesObjArray.push(itunesObj);
-    //   console.log(itunesObj.trackName);
-    console.log(itunesObj);
-    updateFireBaseItunesData(itunesObj);
+      //   console.log(itunesObj.trackName);
+      console.log(itunesObj);
+      updateFireBaseItunesData(itunesObj);
     }
     // console.log(itunesObjArray[2]);
   });
 }
 
-search_results = "Moe";
+// search_results = "Moe";
 
-callItunesApi(search_results);
-
+// callItunesApi(search_results);

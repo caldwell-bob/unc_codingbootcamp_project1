@@ -13,6 +13,7 @@
 </head>
 
 <body>
+    
     <!--- FireBase -->
     <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
@@ -20,13 +21,21 @@
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    <div id ="trackName"></div>
-    <div id ="albumName"></div>
-    <div id ="releaseDate"></div>
-    <div id ="previewUrl"></div>
-    <div id ="artworkUrl"></div>
+    <div id="trackName"></div>
+    <div id="albumName"></div>
+    <div id="releaseDate"></div>
+    <div id="previewUrl"></div>
+    <div id="artworkUrl"></div>
 
     <script src="assets/javascript/caldwell_apple_api.js"></script>
+
+    <script>
+        search_results = "Blonde";
+
+        callItunesApi(search_results);
+        searchStats();
+    </script>
+
 </body>
 
 </html>
