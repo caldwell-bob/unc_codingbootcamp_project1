@@ -65,10 +65,13 @@ function updateFireBaseItunesData(resultsObj) {
   });
 }
 function callItunesApi(search) {
+    var artistInput = $("#textarea1")
+    .val()
+    .trim();
   var ituneSettings = {
     async: true,
     crossDomain: true,
-    url: "https://itunes.apple.com/search?term=" + search + "&limit=3",
+    url: "https://itunes.apple.com/search?term=" + artistInput + "&limit=3",
     method: "GET"
   };
 
@@ -180,6 +183,7 @@ function getSearchInfo() {
   });
 }
 $(document).on("click", ".btn", getSearchInfo);
+$(document).on("click", ".btn", callItunesApi);
 
 
 

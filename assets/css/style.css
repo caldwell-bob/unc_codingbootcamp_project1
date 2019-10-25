@@ -12,9 +12,9 @@ body {
     background-size: cover;
   }
 
-  main {
+  /* main {
     flex: 1 0 auto;
-  }
+  } */
 
   .searchbox {
     background-color: rgb(105,105,105, 0.4);
@@ -57,17 +57,18 @@ body {
     }
   .ticketinfo {
     background-color: rgb(105,105,105, 0.4);
-    height: 400px;
+    height: 300px;
     width: 100%;
     margin: 20px;
+    overflow: auto;
   }
   .recentsearches {
     background-color: rgb(105,105,105, 0.4);
     height: 100px;
     width: 100%;
 
-    position: absolute;
-    top: 120px;
+    /* position: absolute;
+    top: 120px; */
   }
   .youtubeDisplay {
     background-color: rgb(105,105,105, 0.4);
@@ -125,9 +126,9 @@ label.active {
     height: 70px;
 }
 
-img {
+/* img {
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 50%;
-}
+} */
