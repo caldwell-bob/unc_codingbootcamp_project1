@@ -25,9 +25,11 @@ body {
 
   .artistInfo {
     background-color: rgb(105,105,105, 0.4);
-    height: 200px;
+    height: 300px;
     width: 100%;
     margin: 20px;
+    overflow: auto;
+    color: white;
   }
   .footer-copyright {
       background-color: #bbdefb blue;
@@ -86,14 +88,14 @@ body {
     width: 100%;
 }
 h3 {
-    color:#bdbdbd;
+    color: white;
 }
 .table {
     color: white;
 }
 
 #textarea1 {
-  color: rgb(62, 250, 103);
+  color: white;
   font-size: 25px;
   font-family: 'Merriweather', serif;
 /* font-family: 'Noto Sans', sans-serif;
@@ -117,4 +119,15 @@ label.active {
 #ticket-venue, #artist-info, #recent-searches, #youtube {
   /* background-color: black; */
   text-align: center;
+}
+
+#searchbar {
+    height: 70px;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }
