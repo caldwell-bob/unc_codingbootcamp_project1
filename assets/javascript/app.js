@@ -71,15 +71,3 @@ function getSearchInfo () {
 
     // Attempting to add click event on enter press
 
-    var input = document.getElementById(".input-field");
-
-
-input.addEventListener("keyup", function(event) {
-
-  if (event.keyCode === 13) {
-  
-    event.preventDefault();
-    
-    document.getElementById("btn").click();
-  }
-});

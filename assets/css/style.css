@@ -8,6 +8,7 @@ body {
     min-height: 100vh; 
     flex-direction: column;
     background-image: url("audience-band-cheering-1105666 (1).jpg");
+    background-color: black;
     background-attachment: fixed;
     background-size: cover;
   }
@@ -63,7 +64,7 @@ body {
     background-color: rgb(105,105,105, 0.4);
     height: 100px;
     width: 100%;
-
+    
     position: absolute;
     top: 120px;
   }
@@ -87,22 +88,33 @@ body {
 }
 h3 {
     color:#bdbdbd;
+    /* font-family: 'Noto Sans', sans-serif; */
+      /* font-family: 'Anton', sans-serif; */
+      /* font-family: 'Josefin Sans', sans-serif; */
+      /* font-family: 'Lobster', cursive; */
+      /* font-family: 'Arvo', serif; */
+      /* font-family: 'Pacifico', cursive; */
+      font-family: 'Staatliches', cursive; 
+    
 }
 .table {
     color: white;
+    font-family: 'Josefin Sans', sans-serif;
 }
 
+
+
 #textarea1 {
-  color: rgb(62, 250, 103);
+  color: white;
   font-size: 25px;
   font-family: 'Merriweather', serif;
-/* font-family: 'Noto Sans', sans-serif;
-font-family: 'Anton', sans-serif;
-font-family: 'Josefin Sans', sans-serif;
-font-family: 'Lobster', cursive;
-font-family: 'Arvo', serif;
-font-family: 'Pacifico', cursive;
-font-family: 'Staatliches', cursive; */
+/* font-family: 'Noto Sans', sans-serif; */
+/* font-family: 'Anton', sans-serif; */
+/* font-family: 'Josefin Sans', sans-serif; */
+/* font-family: 'Lobster', cursive; */
+/* font-family: 'Arvo', serif; */
+/* font-family: 'Pacifico', cursive; */
+/* font-family: 'Staatliches', cursive; */
 }  
 
 textarea:focus {
@@ -117,4 +129,123 @@ label.active {
 #ticket-venue, #artist-info, #recent-searches, #youtube {
   /* background-color: black; */
   text-align: center;
+}
+
+
+
+
+
+
+/* working on musical note background */
+
+
+
+
+
+
+.note-1, .note-2, .note-3, .note-4, .note-5, .note-6 {
+  position: absolute;
+  animation: notes 2.5s infinite linear;
+  font-size: 35px;
+  opacity: 0;
+}
+
+.note-1 {
+  top: 60%;
+  left: 42%;
+  animation-delay: 2s;
+}
+
+.note-2 {
+  top: 30%;
+  right: 30%;
+  animation-delay: 2.5s;
+}
+
+.note-3 {
+  top: 90px;
+  left: 60%;
+  animation-delay: 1.5s;
+}
+
+.note-4 {
+  top: 40%;
+  left: 15%;
+  animation-delay: 3s;
+}
+
+.note-5 {
+  top: 80%;
+  left: 15%;
+  animation-delay: 1s;
+}
+
+.note-6 {
+  top: 68%;
+  right: 22%; 
+  animation-delay: 1s;
+}
+
+@keyframes notes {
+  0% {
+    transform: scale(1) translate(0, 0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5) translate(50%, -50%);
+  }
+  80% {
+    opacity: 0;
+    transform: scale(1.5) translate(100%, -100%);
+  }
+  100% {
+    transform: scale(1.5) translate(100%, -100%);
+    opacity: 0;
+  }
+}
+
+
+/* Establishing button effects */
+
+.btn{
+  background:black;
+  color:#fff;
+  border:none;
+  position:relative;
+  height:60px;
+  font-size:1.6em;
+  padding:0 2em;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+}
+.btn:focus {
+  background:black;
+  color:#fff;
+}
+
+.btn:hover{
+  background:#fff;
+  color:black;
+}
+.btn:before,.btn:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:1.3px;
+  width:0;
+  background: black;
+  transition:400ms ease all;
+}
+.btn:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+.btn:hover:before,.btn:hover:after{
+  width:100%;
+  transition:800ms ease all;
 }
