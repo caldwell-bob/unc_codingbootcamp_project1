@@ -75,20 +75,31 @@
     <button class = "btn"> Submit </button> 
 
   <div class="row">
-<div class="col-6  artistInfo">
-<h3 id = "artist-info">Artist Info</h3>
+<div class="col-12  artistInfo">
+<h3 id = "artist-info">Album Info</h3>
+<table class="table">
+        <thead>
+          <tr>
+            <!-- The scope attribute specifies that this is a header for a column -->
+            <th scope="col">Artwork</th>
+            <th scope="col">Track Name</th>
+            <th scope="col">Preview URL</th>
+          </tr>
+        </thead>
+        <tbody class="iTunesPreview">
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <!-- Insert additional movie rows here -->
+        </tbody>
+      </table>
 </div>
-<div class="col-1 blank">
+<!-- <div class="col-1 blank">
 
-</div>
-<div class="col-4 searchbox">
-    <h3 id = "recent-searches">Recent Searches:</h3>
-    <!-- <div class="row">
-            <div class="col-12 recentsearches">
+</div> -->
 
-                </div>
-    </div> -->
-      </div>
 
     </div>
     <div class="row">
@@ -117,12 +128,12 @@
       <div class="col-1 blank">
 
     </div>
-    <div class="col-4 youtubeDisplay">
+    <!-- <div class="col-4 youtubeDisplay">
       <h3 id="youtube">Click to Play a Song!</h3>
           <table class="table">
               <thead>
                 <tr>
-                  <!-- The scope attribute specifies that this is a header for a column -->
+               
                   <th scope="col">Artwork</th>
                   <th scope="col">Track Name</th>
                   <th scope="col">Preview URL</th>
@@ -134,12 +145,19 @@
                   <td></td>
                   <td></td>
                 </tr>
-                <!-- Insert additional movie rows here -->
+               
               </tbody>
             </table>
-          </div>
-      
-      <!-- <img src="assets/images/200x100.png" alt=""> -->
+          </div> -->
+          <div class="col-4 searchbox">
+                <h3 id = "recent-searches">Recent Searches:</h3>
+                <!-- <div class="row">
+                        <div class="col-12 recentsearches">
+            
+                            </div>
+                </div> -->
+                  </div>
+
     </div>
   </div>
 
