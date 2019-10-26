@@ -48,7 +48,7 @@ function searchStats() {
         if (searchedArtistArray[i] != current) {
           if (counter > 0) {
             // document.write(current + " comes --> " + counter + " times<br>");
-            console.log(current + " comes --> " + counter + " times<br>");
+            console.log(current + " comes --> " + counter + " times");
           }
           current = searchedArtistArray[i];
           counter = 1;
