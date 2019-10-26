@@ -113,29 +113,29 @@ function callItunesApi(search) {
       console.log("after updateFireBaseItunesData");
     }
 
-    // $(".iTunesPreview").empty();
-    // for (var i = 0; i < itunesObjArray.length; i++) {
+    $(".iTunesPreview").empty();
+    for (var i = 0; i < itunesObjArray.length; i++) {
 
 
-    //   var tBody = $("tbody");
-    //   var tRow = $("<tr>");
-    //   // Methods run on jQuery selectors return the selector they we run on
-    //   // This is why we can create and save a reference to a td in the same statement we update its text
-    //   var trackNameDiv = $("<td>").text(
-    //     itunesObjArray[i].trackName
-    //   );
-    //   var artWorkDiv = $("<td>").text(
-    //     itunesObjArray[i].artworkUrl30
-    //   );
-    //   var previewUrlDiv = $("<td>").text(
-    //     itunesObjArray[i].previewUrl
-    //   );
+      var tBody = $(".iTunesPreview");
+      var tRow = $("<tr>");
+      // Methods run on jQuery selectors return the selector they we run on
+      // This is why we can create and save a reference to a td in the same statement we update its text
+      var trackNameDiv = $("<td>").text(
+        itunesObjArray[i].trackName
+      );
+      var artWorkDiv = $("<td>").text(
+        itunesObjArray[i].artworkUrl30
+      );
+      var previewUrlDiv = $("<td>").text(
+        itunesObjArray[i].previewUrl
+      );
       
-    //   // Append the newly created table data to the table row
-    //   tRow.append(trackNameDiv, artWorkDiv, previewUrlDiv, dateNameDiv);
-    //   // Append the table row to the table body
-    //   tBody.append(tRow);
-    // }
+      // Append the newly created table data to the table row
+      tRow.append(trackNameDiv, artWorkDiv, previewUrlDiv);
+      // Append the table row to the table body
+      tBody.append(tRow);
+    }
     // console.log(itunesObjArray[2]);
   });
 }
@@ -177,7 +177,7 @@ function getSearchInfo() {
         console.log(json._embedded.events[i].dates.start.localDate);
 
 
-        var tBody = $("tbody");
+        var tBody = $(".td");
         var tRow = $("<tr>");
         // Methods run on jQuery selectors return the selector they we run on
         // This is why we can create and save a reference to a td in the same statement we update its text
@@ -202,6 +202,7 @@ function getSearchInfo() {
   });
 }
 $(document).on("click", ".btn", getSearchInfo);
+
 
 
 
