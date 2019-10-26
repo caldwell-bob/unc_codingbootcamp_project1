@@ -142,7 +142,7 @@ function callItunesApi(search) {
 }
 
 function getSearchInfo() {
-  console.log("clicked");
+  console.log("getSearchInfo function called");
   event.preventDefault();
   var artistInput = $("#textarea1")
     .val()
@@ -172,10 +172,10 @@ function getSearchInfo() {
         if (i >= 5) {
           return;
         }
-        console.log(json._embedded.events[i]._embedded.venues[0].name);
-        console.log(json._embedded.events[i]._embedded.venues[0].city.name);
-        console.log(json._embedded.events[i]._embedded.venues[0].state.name);
-        console.log(json._embedded.events[i].dates.start.localDate);
+        // console.log(json._embedded.events[i]._embedded.venues[0].name);
+        // console.log(json._embedded.events[i]._embedded.venues[0].city.name);
+        // console.log(json._embedded.events[i]._embedded.venues[0].state.name);
+        // console.log(json._embedded.events[i].dates.start.localDate);
 
 
         var tBody = $(".td");
