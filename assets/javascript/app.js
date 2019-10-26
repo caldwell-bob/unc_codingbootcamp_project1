@@ -28,6 +28,11 @@ function searchStats() {
     .then(function(snapshot) {
       var numberOfRecords = snapshot.numChildren();
 
+      var topSearchObjects = {
+        name: "",
+        timesSearched: 0
+      }
+
       var searchedArtistArray = [];
       // * Grabs snapshot of DB
       var searchStatsResults = snapshot.val();
@@ -41,6 +46,7 @@ function searchStats() {
       }
       // * TODO calculate top 5 most searches and toss into array
       // * Loop through array and output to Recent Seaches - Artist Name | Number of Searches
+      // * create an array of objects of top 5 searches
       searchedArtistArray.sort();
       var current = null;
       var counter = 0;
