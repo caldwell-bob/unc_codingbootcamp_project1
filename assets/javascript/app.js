@@ -73,16 +73,10 @@ function searchStats() {
         } else {
           counter++;
         }
-        // console.log("The array is now " + resultsTallyArray.length);
-      }
-      // console.log(resultsTallyArray[22]);
-      for (var i = 0; i < resultsTallyArray.length; i++) {
-        console.log(resultsTallyArray[i]);
       }
 
-      // if (counter > 0) {
-      //   // document.write(current + " comes --> " + counter + " times");
-      //   console.log("Second if/then " + current + " : " + counter + " times<br>");
+      // for (var i = 0; i < resultsTallyArray.length; i++) {
+      //   console.log(resultsTallyArray[i]);
       // }
     });
 }
@@ -92,6 +86,29 @@ function updateFireBaseItunesData(resultsObj) {
     dateAdded: firebase.database.ServerValue.TIMESTAMP
   });
 }
+
+function displayAlbumInfo(resultsObj) {
+  // $(".iTunesPreview").empty();
+
+  var tBody = $(".iTunesPreview");
+  var tRow = $("<tr>");
+
+  var trackNameDiv = $("<td>").text(resultsObj.trackName);
+  var artWorkDiv = $("<img>").text(resultsObj.artworkUrl30);
+  var previewUrlDiv = $("<td>").text(resultsObj.previewUrl);
+
+  previewUrlDiv.addClass("songpreview");
+
+  previewUrlDiv.html(
+    '<a href="' + resultsObj.previewUrl + '">Click to Preview Song!</a>'
+  );
+  $("<a>").attr("target", "blank");
+  artWorkDiv.attr("src", resultsObj.artworkUrl100);
+  tRow.append(artWorkDiv, trackNameDiv, previewUrlDiv);
+  tBody.append(tRow);
+}
+
+
 function callItunesApi(search) {
   var ituneSettings = {
     async: true,
@@ -135,33 +152,39 @@ function callItunesApi(search) {
 
       itunesObjArray.push(itunesObj);
       //   console.log(itunesObj.trackName);
-      console.log(itunesObj);
-      console.log("before updateFireBaseItunesData");
+      console.log(itunesObj.trackName);
+      // console.log(itunesObjArray);
+      // console.log("before updateFireBaseItunesData");
       updateFireBaseItunesData(itunesObj);
-      console.log("after updateFireBaseItunesData");
+      displayAlbumInfo(itunesObj);
+      // console.log("after updateFireBaseItunesData");
     }
 
-    $(".iTunesPreview").empty();
-    for (var i = 0; i < itunesObjArray.length; i++) {
-      var tBody = $(".iTunesPreview");
-      var tRow = $("<tr>");
+    // TODO fix scope issue with itunesObjArray
+    console.log("after loop - " + itunesObjArray.length);
+    console.log(itunesObjArray);
 
-      var trackNameDiv = $("<td>").text(itunesObjArray[i].trackName);
-      var artWorkDiv = $("<img>").text(itunesObjArray[i].artworkUrl30);
-      var previewUrlDiv = $("<td>").text(itunesObjArray[i].previewUrl);
+    // $(".iTunesPreview").empty();
+    // for (var i = 0; i < itunesObjArray.length; i++) {
+    //   var tBody = $(".iTunesPreview");
+    //   var tRow = $("<tr>");
 
-      previewUrlDiv.addClass("songpreview");
+    //   var trackNameDiv = $("<td>").text(itunesObjArray[i].trackName);
+    //   var artWorkDiv = $("<img>").text(itunesObjArray[i].artworkUrl30);
+    //   var previewUrlDiv = $("<td>").text(itunesObjArray[i].previewUrl);
 
-      previewUrlDiv.html(
-        '<a href="' +
-          itunesObjArray[i].previewUrl +
-          '">Click to Preview Song!</a>'
-      );
-      $("<a>").attr("target", "blank");
-      artWorkDiv.attr("src", itunesObjArray[i].artworkUrl100);
-      tRow.append(artWorkDiv, trackNameDiv, previewUrlDiv);
-      tBody.append(tRow);
-    }
+    //   previewUrlDiv.addClass("songpreview");
+
+    //   previewUrlDiv.html(
+    //     '<a href="' +
+    //       itunesObjArray[i].previewUrl +
+    //       '">Click to Preview Song!</a>'
+    //   );
+    //   $("<a>").attr("target", "blank");
+    //   artWorkDiv.attr("src", itunesObjArray[i].artworkUrl100);
+    //   tRow.append(artWorkDiv, trackNameDiv, previewUrlDiv);
+    //   tBody.append(tRow);
+    // }
     // console.log(itunesObjArray[2]);
   });
 }
@@ -169,6 +192,7 @@ function callItunesApi(search) {
 function getSearchInfo() {
   console.log("getSearchInfo function called");
   event.preventDefault();
+  $(".iTunesPreview").empty(); // * clears out Album Info display on new search
   var artistInput = $("#textarea1")
     .val()
     .trim();
