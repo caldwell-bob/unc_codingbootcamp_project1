@@ -251,3 +251,9 @@ label.active {
   width: 100%;
   transition: 800ms ease all;
 }
+a {
+    color: white;
+}
+a:hover {
+    color: lightgrey;
+}
