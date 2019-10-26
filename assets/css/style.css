@@ -90,7 +90,7 @@ body {
     width: 100%;
 }
 h3 {
-    color:#bdbdbd;
+    color:white;
     /* font-family: 'Noto Sans', sans-serif; */
       /* font-family: 'Anton', sans-serif; */
       /* font-family: 'Josefin Sans', sans-serif; */
@@ -212,7 +212,7 @@ label.active {
 /* Establishing button effects */
 
 .btn{
-  background:black;
+  background: rgb(105,105,105, 0.4);
   color:#fff;
   border:none;
   position:relative;
@@ -224,7 +224,7 @@ label.active {
   outline:none;
 }
 .btn:focus {
-  background:black;
+  background:rgb(105,105,105, 0.4);
   color:#fff;
 }
 
@@ -239,7 +239,7 @@ label.active {
   right:0;
   height:1.3px;
   width:0;
-  background: black;
+  background: rgb(105,105,105, 0.4);
   transition:400ms ease all;
 }
 .btn:after{
