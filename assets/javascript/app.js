@@ -129,8 +129,7 @@ function callItunesApi(search) {
 
       var tBody = $(".iTunesPreview");
       var tRow = $("<tr>");
-      // Methods run on jQuery selectors return the selector they we run on
-      // This is why we can create and save a reference to a td in the same statement we update its text
+
       var trackNameDiv = $("<td>").text(
         itunesObjArray[i].trackName
       );
@@ -140,11 +139,13 @@ function callItunesApi(search) {
       var previewUrlDiv = $("<td>").text(
         itunesObjArray[i].previewUrl
       );
-      previewUrlDiv.addClass("musicUrl")
+
+      previewUrlDiv.addClass("songpreview")
+    
+      previewUrlDiv.html('<a href="' +  itunesObjArray[i].previewUrl + '">Click to Preview Song!</a>')
+      $("<a>").attr("target", "blank");
       artWorkDiv.attr("src", itunesObjArray[i].artworkUrl100)
-      // Append the newly created table data to the table row
       tRow.append(artWorkDiv, trackNameDiv, previewUrlDiv);
-      // Append the table row to the table body
       tBody.append(tRow);
     }
     // console.log(itunesObjArray[2]);
@@ -157,7 +158,6 @@ function getSearchInfo() {
   var artistInput = $("#textarea1")
     .val()
     .trim();
-  // var zipCode = $(".input-field2").val().trim();
 
   console.log(artistInput);
   callItunesApi(artistInput);
@@ -191,8 +191,6 @@ function getSearchInfo() {
 
         var tBody = $(".td");
         var tRow = $("<tr>");
-        // Methods run on jQuery selectors return the selector they we run on
-        // This is why we can create and save a reference to a td in the same statement we update its text
         var venueNameDiv = $("<td>").text(
           json._embedded.events[i]._embedded.venues[0].name
         );
@@ -205,9 +203,7 @@ function getSearchInfo() {
         var dateNameDiv = $("<td>").text(
           json._embedded.events[i].dates.start.localDate
         );
-        // Append the newly created table data to the table row
         tRow.append(venueNameDiv, cityNameDiv, stateNameDiv, dateNameDiv);
-        // Append the table row to the table body
         tBody.append(tRow);
       }
     }
