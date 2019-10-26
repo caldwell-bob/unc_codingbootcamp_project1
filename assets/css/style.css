@@ -96,8 +96,16 @@ body {
     width: 100%;
 }
 h3 {
-    color:#bdbdbd;
-    font-family: 'Staatliches', cursive; 
+
+    color:white;
+    /* font-family: 'Noto Sans', sans-serif; */
+      /* font-family: 'Anton', sans-serif; */
+      /* font-family: 'Josefin Sans', sans-serif; */
+      /* font-family: 'Lobster', cursive; */
+      /* font-family: 'Arvo', serif; */
+      /* font-family: 'Pacifico', cursive; */
+      font-family: 'Staatliches', cursive; 
+
     
 }
 .table {
@@ -197,21 +205,22 @@ label.active {
 /* Establishing Submit button effects */
 
 .btn{
-  background: black;
-  color: #fff;
-  border: none;
-  position: relative;
-  height: 60px;
-  font-size: 1.6em;
-  padding: 0 2em;
-  cursor: pointer;
-  transition: 800ms ease all;
-  outline: none;
-  margin-bottom: 40px;
+
+  background: rgb(105,105,105, 0.4);
+  color:#fff;
+  border:none;
+  position:relative;
+  height:60px;
+  font-size:1.6em;
+  padding:0 2em;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
 }
 .btn:focus {
-  background: black;
-  color: #fff;
+  background:rgb(105,105,105, 0.4);
+  color:#fff;
+
 }
 
 
@@ -221,14 +230,16 @@ label.active {
   color: black;
 }
 .btn:before,.btn:after{
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 1.3px;
-  width: 0;
-  background: black;
-  transition: 400ms ease all;
+
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:1.3px;
+  width:0;
+  background: rgb(105,105,105, 0.4);
+  transition:400ms ease all;
+
 }
 .btn:after{
   right: inherit;

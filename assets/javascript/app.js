@@ -129,7 +129,11 @@ function callItunesApi(search) {
       var previewUrlDiv = $("<td>").text(
         itunesObjArray[i].previewUrl
       );
-      previewUrlDiv.addClass("musicUrl")
+
+      previewUrlDiv.addClass("songpreview")
+    
+      previewUrlDiv.html('<a href="' +  itunesObjArray[i].previewUrl + '">Click to Preview Song!</a>')
+      $("<a>").attr("target", "blank");
       artWorkDiv.attr("src", itunesObjArray[i].artworkUrl100)
       tRow.append(artWorkDiv, trackNameDiv, previewUrlDiv);
       tBody.append(tRow);
