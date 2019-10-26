@@ -128,15 +128,16 @@ function callItunesApi(search) {
       var trackNameDiv = $("<td>").text(
         itunesObjArray[i].trackName
       );
-      var artWorkDiv = $("<td>").text(
+      var artWorkDiv = $("<img>").text(
         itunesObjArray[i].artworkUrl30
       );
       var previewUrlDiv = $("<td>").text(
         itunesObjArray[i].previewUrl
       );
-      
+      previewUrlDiv.addClass("musicUrl")
+      artWorkDiv.attr("src", itunesObjArray[i].artworkUrl100)
       // Append the newly created table data to the table row
-      tRow.append(trackNameDiv, artWorkDiv, previewUrlDiv);
+      tRow.append(artWorkDiv, trackNameDiv, previewUrlDiv);
       // Append the table row to the table body
       tBody.append(tRow);
     }
