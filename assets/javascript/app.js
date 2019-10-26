@@ -39,13 +39,16 @@ function searchStats() {
           searchStatsResults[searchIds[i]].itunesSearchResults.artistName
         );
       }
+      // * TODO calculate top 5 most searches and toss into array
+      // * Loop through array and output to Recent Seaches - Artist Name | Number of Searches
       searchedArtistArray.sort();
       var current = null;
       var counter = 0;
       for (var i = 0; i < searchedArtistArray.length; i++) {
         if (searchedArtistArray[i] != current) {
           if (counter > 0) {
-            document.write(current + " comes --> " + counter + " times<br>");
+            // document.write(current + " comes --> " + counter + " times<br>");
+            console.log(current + " comes --> " + counter + " times<br>");
           }
           current = searchedArtistArray[i];
           counter = 1;
@@ -54,7 +57,8 @@ function searchStats() {
         }
       }
       if (counter > 0) {
-        document.write(current + " comes --> " + counter + " times");
+        // document.write(current + " comes --> " + counter + " times");
+        console.log(current + " comes --> " + counter + " times<br>");
       }
     });
 }
@@ -150,6 +154,7 @@ function getSearchInfo() {
 
   console.log(artistInput);
   callItunesApi(artistInput);
+  searchStats();
   // console.log(zipCode);
   // $("#textarea1").val("");
   var queryURL =
