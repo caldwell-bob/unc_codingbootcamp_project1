@@ -17,6 +17,7 @@ var searchCounter = 0;
 
 var database = firebase.database();
 var searchRef = database.ref("/searches");
+var resultsTallyArray = [];
 
 function searchStats() {
   console.log("searchStats function called");
@@ -27,11 +28,13 @@ function searchStats() {
     .once("value")
     .then(function(snapshot) {
       var numberOfRecords = snapshot.numChildren();
+      // var resultsTallyArray = [];
+      var tempObj = {};
 
-      var topSearchObjects = {
-        name: "",
-        timesSearched: 0
-      }
+      // var searchResultsTally = {
+      //   name: "",
+      //   timesSearched: 0
+      // };
 
       var searchedArtistArray = [];
       // * Grabs snapshot of DB
@@ -51,21 +54,36 @@ function searchStats() {
       var current = null;
       var counter = 0;
       for (var i = 0; i < searchedArtistArray.length; i++) {
+        var searchResultsTally = {
+          name: "",
+          timesSearched: 0
+        };
         if (searchedArtistArray[i] != current) {
           if (counter > 0) {
             // document.write(current + " comes --> " + counter + " times<br>");
-            console.log(current + " comes --> " + counter + " times");
+            // console.log("First If/Then " + current + " : " + counter + " times");
+            searchResultsTally.name = current;
+            searchResultsTally.timesSearched = counter;
+            tempObj = searchResultsTally;
+            // console.log(tempObj);
+            resultsTallyArray.push(tempObj);
           }
           current = searchedArtistArray[i];
           counter = 1;
         } else {
-            counter++;
+          counter++;
         }
+        // console.log("The array is now " + resultsTallyArray.length);
       }
-      if (counter > 0) {
-        // document.write(current + " comes --> " + counter + " times");
-        console.log(current + " comes --> " + counter + " times<br>");
+      // console.log(resultsTallyArray[22]);
+      for (var i = 0; i < resultsTallyArray.length; i++) {
+        console.log(resultsTallyArray[i]);
       }
+
+      // if (counter > 0) {
+      //   // document.write(current + " comes --> " + counter + " times");
+      //   console.log("Second if/then " + current + " : " + counter + " times<br>");
+      // }
     });
 }
 function updateFireBaseItunesData(resultsObj) {
@@ -125,26 +143,22 @@ function callItunesApi(search) {
 
     $(".iTunesPreview").empty();
     for (var i = 0; i < itunesObjArray.length; i++) {
-
-
       var tBody = $(".iTunesPreview");
       var tRow = $("<tr>");
 
-      var trackNameDiv = $("<td>").text(
-        itunesObjArray[i].trackName
-      );
-      var artWorkDiv = $("<img>").text(
-        itunesObjArray[i].artworkUrl30
-      );
-      var previewUrlDiv = $("<td>").text(
-        itunesObjArray[i].previewUrl
-      );
+      var trackNameDiv = $("<td>").text(itunesObjArray[i].trackName);
+      var artWorkDiv = $("<img>").text(itunesObjArray[i].artworkUrl30);
+      var previewUrlDiv = $("<td>").text(itunesObjArray[i].previewUrl);
 
-      previewUrlDiv.addClass("songpreview")
-    
-      previewUrlDiv.html('<a href="' +  itunesObjArray[i].previewUrl + '">Click to Preview Song!</a>')
+      previewUrlDiv.addClass("songpreview");
+
+      previewUrlDiv.html(
+        '<a href="' +
+          itunesObjArray[i].previewUrl +
+          '">Click to Preview Song!</a>'
+      );
       $("<a>").attr("target", "blank");
-      artWorkDiv.attr("src", itunesObjArray[i].artworkUrl100)
+      artWorkDiv.attr("src", itunesObjArray[i].artworkUrl100);
       tRow.append(artWorkDiv, trackNameDiv, previewUrlDiv);
       tBody.append(tRow);
     }
@@ -177,7 +191,6 @@ function getSearchInfo() {
     success: function(json) {
       console.log(json);
 
-
       $(".td").empty();
       for (var i = 0; i < json._embedded.events.length; i++) {
         if (i >= 5) {
@@ -187,7 +200,6 @@ function getSearchInfo() {
         // console.log(json._embedded.events[i]._embedded.venues[0].city.name);
         // console.log(json._embedded.events[i]._embedded.venues[0].state.name);
         // console.log(json._embedded.events[i].dates.start.localDate);
-
 
         var tBody = $(".td");
         var tRow = $("<tr>");
@@ -210,7 +222,3 @@ function getSearchInfo() {
   });
 }
 $(document).on("click", ".btn", getSearchInfo);
-
-
-
-
