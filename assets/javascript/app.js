@@ -250,34 +250,64 @@ function getSearchInfo() {
     success: function(json) {
       console.log(json);
 
-      $(".td").empty();
-      for (var i = 0; i < json._embedded.events.length; i++) {
-        if (i >= 5) {
-          return;
-        }
-        // console.log(json._embedded.events[i]._embedded.venues[0].name);
-        // console.log(json._embedded.events[i]._embedded.venues[0].city.name);
-        // console.log(json._embedded.events[i]._embedded.venues[0].state.name);
-        // console.log(json._embedded.events[i].dates.start.localDate);
-
-        var tBody = $(".td");
-        var tRow = $("<tr>");
-        var venueNameDiv = $("<td>").text(
-          json._embedded.events[i]._embedded.venues[0].name
-        );
-        var cityNameDiv = $("<td>").text(
-          json._embedded.events[i]._embedded.venues[0].city.name
-        );
-        var stateNameDiv = $("<td>").text(
-          json._embedded.events[i]._embedded.venues[0].state.name
-        );
-        var dateNameDiv = $("<td>").text(
-          json._embedded.events[i].dates.start.localDate
-        );
-        tRow.append(venueNameDiv, cityNameDiv, stateNameDiv, dateNameDiv);
-        tBody.append(tRow);
+     // Where we added changes
+      // Checks is json._embedded is array or undefined
+      if (json._embedded) {
+        // array route
+        console.log('has shows')
+        // send array argument
+        printShowsToPage(json._embedded)
+      } else {
+        // undefined route
+        console.log('no shows')
+        // sends false argument
+        printShowsToPage(false);
       }
     }
   });
+}
+function printShowsToPage(shows) {
+  if (!shows) {
+    console.log('Array does not exist for shows - no upcoming shows');
+    // print to screen no shows line
+    $(".td").empty();
+    var tBody = $(".td");
+    var tRow = $("<tr>");
+    var noShowsRow = $("<td>").text(
+      'There are no upcoming shows for this artist'
+    );
+    tRow.append(noShowsRow);
+    tBody.append(tRow);
+  } else {
+    // Got back expected show array
+    
+    console.log('print upcoming shows');
+    $(".td").empty();
+    for (var i = 0; i < shows.events.length; i++) {
+      if (i >= 5) {
+        return;
+      }
+      // console.log(shows.events[i]._embedded.venues[0].name);
+      // console.log(shows.events[i]._embedded.venues[0].city.name);
+      // console.log(shows.events[i]._embedded.venues[0].state.name);
+      // console.log(shows.events[i].dates.start.localDate);
+      var tBody = $(".td");
+      var tRow = $("<tr>");
+      var venueNameDiv = $("<td>").text(
+        shows.events[i]._embedded.venues[0].name
+      );
+      var cityNameDiv = $("<td>").text(
+        shows.events[i]._embedded.venues[0].city.name
+      );
+      var stateNameDiv = $("<td>").text(
+        shows.events[i]._embedded.venues[0].state.name
+      );
+      var dateNameDiv = $("<td>").text(
+        shows.events[i].dates.start.localDate
+      );
+      tRow.append(venueNameDiv, cityNameDiv, stateNameDiv, dateNameDiv);
+      tBody.append(tRow);
+    }
+  }
 }
 $(document).on("click", ".btn", getSearchInfo);
