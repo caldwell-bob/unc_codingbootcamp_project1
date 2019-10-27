@@ -31,6 +31,39 @@ function compare(a,b) {
 }
 
 
+function countTEST(myArray) {
+  // array_elements = ["a", "b", "c", "d", "e", "a", "b", "c", "f", "g", "h", "h", "h", "e", "a"];
+
+  myArray.sort();
+
+  var current = null;
+  var cnt = 0;
+  for (var i = 0; i < myArray.length; i++) {
+      if (myArray[i] != current) {
+          if (cnt > 0) {
+              document.write(current + ' comes --> ' + cnt/3 + ' times<br>');
+          }
+          current = myArray[i];
+          cnt = 1;
+      } else {
+          cnt++;
+      }
+  }
+  if (cnt > 0) {
+      document.write(current + ' comes when --> ' + cnt/3 + ' times');
+  }
+
+}
+
+function count(myArray) {
+  console.log("in count");
+  var counts = {};
+  myArray.forEach(function(x) { counts[x] = (counts[x] || 0)+1; });
+  console.log(counts);
+
+
+}
+
 function searchStats() {
   console.log("searchStats function called");
   // * grab a snapshot of the search results from DB
@@ -55,6 +88,8 @@ function searchStats() {
       // * Loop through array and output to Recent Seaches - Artist Name | Number of Searches
       // * create an array of objects of top 5 searches
       searchedArtistArray.sort();
+      count(searchedArtistArray);
+      
 
       // * Tally Mode
       var current = null;
