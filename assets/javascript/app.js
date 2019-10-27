@@ -88,21 +88,18 @@ function searchStats() {
       }
 
       var sortedArray = resultsTallyArray.sort(compare);
-      
-
-      var keyNames = Object.keys(sortedArray);
-    
-
+  
       var topFiveArray = [];
       var pushedCounter = 0;
       
-
-
       // TODO need to address when starting w no data (sortedArray.length < 5)
       for (var i = 0; i < sortedArray.length; i++){ 
         key = Object.keys(sortedArray)[i];
         name = sortedArray[key].name;
+        spacer = " searched " ;
         timesSearched = sortedArray[i].timesSearched;
+        record = name + spacer + timesSearched + " times";
+        console.log("record: " + record);
         
         
 
@@ -112,17 +109,16 @@ function searchStats() {
         }
         console.log(resultsObj)
 
-        if (topFiveArray.includes(name)) {
+        if (topFiveArray.includes(record)) {
           console.log(resultsObj.name + " is a duplicate");
         } else {
-          topFiveArray.push(name);
+          topFiveArray.push(record);
           pushedCounter += 1;
         }
 
         if (pushedCounter === 5) {
           break;
         }
-        // console.log("pushedCounter: " + pushedCounter);
       }
 
       console.log("length of topFiveArray: " + topFiveArray.length);
@@ -133,16 +129,6 @@ function searchStats() {
         displayTopSearches(topFiveArray[i]);
       }
 
-
-
-      // * need to replace this way to be consistent w app
-      // var searchList = document.getElementById("searchList");
-      // topFiveArray.forEach(function(name){
-      //   var li = document.createElement("li");
-      //   li.textContent = name;
-      //   searchList.appendChild(li);
-
-      // })
     });
 }
 
