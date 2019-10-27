@@ -17,6 +17,10 @@ body {
     flex: 1 0 auto;
   }
 
+  li {
+    color: white;
+  }
+
   .searchbox {
     background-color: rgb(105,105,105, 0.4);
     height: 200px;

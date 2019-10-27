@@ -124,7 +124,13 @@ function searchStats() {
       for (var i = 0; i < topFiveArray.length; i++) {
         console.log(topFiveArray[i]);
       }
+      var searchList = document.getElementById("searchList");
+      topFiveArray.forEach(function(name){
+        var li = document.createElement("li");
+        li.textContent = name;
+        searchList.appendChild(li);
 
+      })
     
 
     });
