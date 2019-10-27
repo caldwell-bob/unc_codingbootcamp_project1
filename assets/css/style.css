@@ -23,9 +23,10 @@ body {
 
   .searchbox {
     background-color: rgb(105,105,105, 0.4);
-    height: 200px;
+    height: 400px;
     width: 100%;
     margin: 20px 20px 40px 20px;
+    text-align: center;
   }
 
   .artistInfo {
