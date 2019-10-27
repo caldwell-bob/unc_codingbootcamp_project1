@@ -11,13 +11,28 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-// firebase.analytics();
 
 var searchCounter = 0;
-
 var database = firebase.database();
 var searchRef = database.ref("/searches");
 var resultsTallyArray = [];
+
+function compare(a,b) {
+  const tallyA = a.timesSearched;
+  const tallyB = b.timesSearched;
+
+  let comparison = 0;
+  if (tallyA > tallyB) {
+    comparison = 1;
+  } else if (tallyA < tallyB) {
+    comparison = -1;
+  }
+  return comparison * -1;
+}
+
+
+
+
 
 function searchStats() {
   console.log("searchStats function called");
@@ -27,15 +42,7 @@ function searchStats() {
     .ref("/searches")
     .once("value")
     .then(function(snapshot) {
-      var numberOfRecords = snapshot.numChildren();
-      // var resultsTallyArray = [];
-      var tempObj = {};
-
-      // var searchResultsTally = {
-      //   name: "",
-      //   timesSearched: 0
-      // };
-
+      var tempObj = {}; // ? do I really need this
       var searchedArtistArray = [];
       // * Grabs snapshot of DB
       var searchStatsResults = snapshot.val();
@@ -51,6 +58,8 @@ function searchStats() {
       // * Loop through array and output to Recent Seaches - Artist Name | Number of Searches
       // * create an array of objects of top 5 searches
       searchedArtistArray.sort();
+
+      // * Tally Mode
       var current = null;
       var counter = 0;
       for (var i = 0; i < searchedArtistArray.length; i++) {
@@ -69,17 +78,58 @@ function searchStats() {
             resultsTallyArray.push(tempObj);
           }
           current = searchedArtistArray[i];
+          searchResultsTally.name = current;
+          searchResultsTally.timesSearched = counter;
+          tempObj = searchResultsTally;
+          resultsTallyArray.push(tempObj)
+
+
           counter = 1;
         } else {
           counter++;
         }
       }
 
-      // for (var i = 0; i < resultsTallyArray.length; i++) {
-      //   console.log(resultsTallyArray[i]);
-      // }
+      var sortedArray = resultsTallyArray.sort(compare);
+      // console.log("sortedArray");
+      // console.log(sortedArray);
+
+      var keyNames = Object.keys(sortedArray);
+      // console.log(keyNames)
+
+      var topFiveArray = [];
+      var pushedCounter = 0;
+      
+
+
+      // TODO need to address when starting w no data (sortedArray.length < 5)
+      for (var i = 0; i < sortedArray.length; i++){ 
+        key = Object.keys(sortedArray)[i];
+        name = sortedArray[key].name;
+
+        if (topFiveArray.includes(name)) {
+          console.log(name + " is a duplicate");
+        } else {
+          topFiveArray.push(name);
+          pushedCounter += 1;
+        }
+
+        if (pushedCounter === 5) {
+          break;
+        }
+
+        console.log("pushedCounter: " + pushedCounter);
+      }
+      console.log("length of topFiveArray: " + topFiveArray.length);
+      for (var i = 0; i < topFiveArray.length; i++) {
+        console.log(topFiveArray[i]);
+      }
+
+    
+
     });
 }
+
 function updateFireBaseItunesData(resultsObj) {
   database.ref("/searches").push({
     itunesSearchResults: resultsObj,
@@ -151,41 +201,10 @@ function callItunesApi(search) {
       itunesObj.artworkUrl100 = resultsArray[x].artworkUrl100;
 
       itunesObjArray.push(itunesObj);
-      //   console.log(itunesObj.trackName);
       console.log(itunesObj.trackName);
-      // console.log(itunesObjArray);
-      // console.log("before updateFireBaseItunesData");
       updateFireBaseItunesData(itunesObj);
       displayAlbumInfo(itunesObj);
-      // console.log("after updateFireBaseItunesData");
     }
-
-    // TODO fix scope issue with itunesObjArray
-    console.log("after loop - " + itunesObjArray.length);
-    console.log(itunesObjArray);
-
-    // $(".iTunesPreview").empty();
-    // for (var i = 0; i < itunesObjArray.length; i++) {
-    //   var tBody = $(".iTunesPreview");
-    //   var tRow = $("<tr>");
-
-    //   var trackNameDiv = $("<td>").text(itunesObjArray[i].trackName);
-    //   var artWorkDiv = $("<img>").text(itunesObjArray[i].artworkUrl30);
-    //   var previewUrlDiv = $("<td>").text(itunesObjArray[i].previewUrl);
-
-    //   previewUrlDiv.addClass("songpreview");
-
-    //   previewUrlDiv.html(
-    //     '<a href="' +
-    //       itunesObjArray[i].previewUrl +
-    //       '">Click to Preview Song!</a>'
-    //   );
-    //   $("<a>").attr("target", "blank");
-    //   artWorkDiv.attr("src", itunesObjArray[i].artworkUrl100);
-    //   tRow.append(artWorkDiv, trackNameDiv, previewUrlDiv);
-    //   tBody.append(tRow);
-    // }
-    // console.log(itunesObjArray[2]);
   });
 }
 
