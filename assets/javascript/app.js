@@ -30,6 +30,70 @@ function compare(a,b) {
   return comparison * -1;
 }
 
+function arrayCheck(someArray) {
+  console.log("***** in arrayCheck *****");
+  for (var i=0; i < someArray.length; i++){
+    console.log(someArray[i] + i);
+
+  }
+}
+function tallyArray(someArray) {
+  console.log("in tallyArray");
+  var searchedArtistArray = someArray;
+  // console.log("in tallyArray");
+  // * Tally Mode
+  var current = null;
+  var counter = 0;
+  var resultsTallyArray = []; // * This is the array that this function will return, array of onject [names, count]
+
+  for (var i = 0; i < someArray.length; i++) {
+      if (someArray[i] != current) {
+          if (counter > 0) {
+              document.write(current + ' comes --> ' + counter + ' times<br>');
+          }
+          current = someArray[i];
+          counter = 1;
+      } else {
+        counter++;
+      }
+  }
+  if (counter > 0) {
+      document.write(current + ' comes homes alabama--> ' + counter + ' times');
+  }
+
+
+  // for (var i = 0; i < searchedArtistArray.length; i++) {
+  //   var searchResultsTally = {
+  //     name: "",
+  //     timesSearched: 0
+  //   };
+  //   if (searchedArtistArray[i] != current) {
+  //     if (counter > 0) {
+  //       // document.write(current + " comes --> " + counter + " times<br>");
+  //       console.log("First If/Then " + current + " : " + counter + " times");
+  //       searchResultsTally.name = current;
+  //       searchResultsTally.timesSearched = counter;
+  //       tempObj = searchResultsTally;
+  //       // console.log(tempObj);
+  //       resultsTallyArray.push(tempObj);
+  //     }
+
+  //     current = searchedArtistArray[i];
+  //     searchResultsTally.name = current;
+  //     searchResultsTally.timesSearched = counter;
+  //     tempObj = searchResultsTally;
+  //     // console.log=(tempObj);
+  //     resultsTallyArray.push(tempObj)
+
+
+  //     counter = 1;
+  //   } else {
+  //     counter++;
+  //   }
+  //   break;
+  // } return resultsTallyArray;
+  
+}
 
 function searchStats() {
   console.log("searchStats function called");
@@ -55,38 +119,43 @@ function searchStats() {
       // * Loop through array and output to Recent Seaches - Artist Name | Number of Searches
       // * create an array of objects of top 5 searches
       searchedArtistArray.sort();
+      // TODO SEV1 - Verify dataset at point: searchedArtistArray
+      arrayCheck(searchedArtistArray);
+      resultsTallyArray = tallyArray(searchedArtistArray);
 
-      // * Tally Mode
-      var current = null;
-      var counter = 0;
-      for (var i = 0; i < searchedArtistArray.length; i++) {
-        var searchResultsTally = {
-          name: "",
-          timesSearched: 0
-        };
-        if (searchedArtistArray[i] != current) {
-          if (counter > 0) {
-            // document.write(current + " comes --> " + counter + " times<br>");
-            // console.log("First If/Then " + current + " : " + counter + " times");
-            searchResultsTally.name = current;
-            searchResultsTally.timesSearched = counter;
-            tempObj = searchResultsTally;
-            // console.log(tempObj);
-            resultsTallyArray.push(tempObj);
-          }
-          current = searchedArtistArray[i];
-          searchResultsTally.name = current;
-          searchResultsTally.timesSearched = counter;
-          tempObj = searchResultsTally;
-          resultsTallyArray.push(tempObj)
+      // // * Tally Mode
+      // var current = null;
+      // var counter = 0;
+      // for (var i = 0; i < searchedArtistArray.length; i++) {
+      //   var searchResultsTally = {
+      //     name: "",
+      //     timesSearched: 0
+      //   };
+      //   if (searchedArtistArray[i] != current) {
+      //     if (counter > 0) {
+      //       // document.write(current + " comes --> " + counter + " times<br>");
+      //       // console.log("First If/Then " + current + " : " + counter + " times");
+      //       searchResultsTally.name = current;
+      //       searchResultsTally.timesSearched = counter;
+      //       tempObj = searchResultsTally;
+      //       // console.log(tempObj);
+      //       resultsTallyArray.push(tempObj);
+      //     }
+      //     current = searchedArtistArray[i];
+      //     searchResultsTally.name = current;
+      //     searchResultsTally.timesSearched = counter;
+      //     tempObj = searchResultsTally;
+      //     resultsTallyArray.push(tempObj)
 
 
-          counter = 1;
-        } else {
-          counter++;
-        }
-      }
+      //     counter = 1;
+      //   } else {
+      //     counter++;
+      //   }
+      // }
 
+
+      console.log("resultsTallyArray -> " + resultsTallyArray);
       var sortedArray = resultsTallyArray.sort(compare);
   
       var topFiveArray = [];
@@ -94,6 +163,7 @@ function searchStats() {
       
       // TODO need to address when starting w no data (sortedArray.length < 5)
       for (var i = 0; i < sortedArray.length; i++){ 
+        console.log("in for loop")
         key = Object.keys(sortedArray)[i];
         name = sortedArray[key].name;
         spacer = " searched " ;
@@ -107,7 +177,7 @@ function searchStats() {
           name: name,
           timesSearched: timesSearched,
         }
-        console.log(resultsObj)
+        // console.log(resultsObj)
 
         if (topFiveArray.includes(record)) {
           console.log(resultsObj.name + " is a duplicate");
@@ -124,7 +194,7 @@ function searchStats() {
       console.log("length of topFiveArray: " + topFiveArray.length);
 
       $(".topSearches").empty();
-      for (var i = 0; i < topFiveArray.length; i++) {
+      for (var i = 1; i < topFiveArray.length; i++) {
         console.log(topFiveArray[i]);
         displayTopSearches(topFiveArray[i]);
       }
@@ -133,10 +203,13 @@ function searchStats() {
 }
 
 function updateFireBaseItunesData(resultsObj) {
+  console.log("updateFireBaseItunesData() called");
   database.ref("/searches").push({
     itunesSearchResults: resultsObj,
     dateAdded: firebase.database.ServerValue.TIMESTAMP
   });
+  console.log("called searchStats - w/in updateFireBaseItunesData")
+  searchStats();
 }
 
 function displayTopSearches(resultsObj) {
@@ -175,6 +248,7 @@ function displayAlbumInfo(resultsObj) {
 
 
 function callItunesApi(search) {
+  console.log("callItunesAPi called - in it now");
   var ituneSettings = {
     async: true,
     crossDomain: true,
@@ -194,7 +268,7 @@ function callItunesApi(search) {
       artworkUrl30: "",
       artworkUrl60: "",
       artworkUrl100: ""
-    };
+      };
 
     var itunesObjArray = [];
     var responseObj = JSON.parse(response);
@@ -215,7 +289,7 @@ function callItunesApi(search) {
       itunesObj.artworkUrl60 = resultsArray[x].artworkUrl60;
       itunesObj.artworkUrl100 = resultsArray[x].artworkUrl100;
 
-      itunesObjArray.push(itunesObj);
+      itunesObjArray.push(itunesObj); // ? Not sure if this is required.
       console.log(itunesObj.trackName);
       updateFireBaseItunesData(itunesObj);
       displayAlbumInfo(itunesObj);
@@ -234,7 +308,7 @@ function getSearchInfo() {
 
   console.log(artistInput);
   callItunesApi(artistInput);
-  searchStats();
+  // searchStats();
   // console.log(zipCode);
   // $("#textarea1").val("");
   var queryURL =
