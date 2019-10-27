@@ -91,15 +91,42 @@ function searchStats() {
       }
 
       var sortedArray = resultsTallyArray.sort(compare);
-      console.log(sortedArray);
+      // console.log("sortedArray");
+      // console.log(sortedArray);
 
-      // for (var i = 0; i < resultsTallyArray.length; i++) {
-      //   if (resultsTallyArray[i].timesSearched > 20) {
-      //     console.log(resultsTallyArray[i]);
+      var keyNames = Object.keys(sortedArray);
+      // console.log(keyNames)
 
-      //   }
-      //   // console.log(resultsTallyArray[i]);
-      // }
+      var topFiveArray = [];
+      var pushedCounter = 0;
+      
+
+
+      // TODO need to address when starting w no data (sortedArray.length < 5)
+      for (var i = 0; i < sortedArray.length; i++){ 
+        key = Object.keys(sortedArray)[i];
+        name = sortedArray[key].name;
+
+        if (topFiveArray.includes(name)) {
+          console.log(name + " is a duplicate");
+        } else {
+          topFiveArray.push(name);
+          pushedCounter += 1;
+        }
+
+        if (pushedCounter === 5) {
+          break;
+        }
+
+        console.log("pushedCounter: " + pushedCounter);
+      }
+      console.log("length of topFiveArray: " + topFiveArray.length);
+      for (var i = 0; i < topFiveArray.length; i++) {
+        console.log(topFiveArray[i]);
+      }
+
+    
+
     });
 }
 
