@@ -31,9 +31,6 @@ function compare(a,b) {
 }
 
 
-
-
-
 function searchStats() {
   console.log("searchStats function called");
   // * grab a snapshot of the search results from DB
@@ -91,11 +88,10 @@ function searchStats() {
       }
 
       var sortedArray = resultsTallyArray.sort(compare);
-      // console.log("sortedArray");
-      // console.log(sortedArray);
+      
 
       var keyNames = Object.keys(sortedArray);
-      // console.log(keyNames)
+    
 
       var topFiveArray = [];
       var pushedCounter = 0;
@@ -106,9 +102,18 @@ function searchStats() {
       for (var i = 0; i < sortedArray.length; i++){ 
         key = Object.keys(sortedArray)[i];
         name = sortedArray[key].name;
+        timesSearched = sortedArray[i].timesSearched;
+        
+        
+
+        var resultsObj = {
+          name: name,
+          timesSearched: timesSearched,
+        }
+        console.log(resultsObj)
 
         if (topFiveArray.includes(name)) {
-          console.log(name + " is a duplicate");
+          console.log(resultsObj.name + " is a duplicate");
         } else {
           topFiveArray.push(name);
           pushedCounter += 1;
@@ -117,22 +122,27 @@ function searchStats() {
         if (pushedCounter === 5) {
           break;
         }
-
-        console.log("pushedCounter: " + pushedCounter);
+        // console.log("pushedCounter: " + pushedCounter);
       }
+
       console.log("length of topFiveArray: " + topFiveArray.length);
+
+      $(".topSearches").empty();
       for (var i = 0; i < topFiveArray.length; i++) {
         console.log(topFiveArray[i]);
+        displayTopSearches(topFiveArray[i]);
       }
-      var searchList = document.getElementById("searchList");
-      topFiveArray.forEach(function(name){
-        var li = document.createElement("li");
-        li.textContent = name;
-        searchList.appendChild(li);
 
-      })
-    
 
+
+      // * need to replace this way to be consistent w app
+      // var searchList = document.getElementById("searchList");
+      // topFiveArray.forEach(function(name){
+      //   var li = document.createElement("li");
+      //   li.textContent = name;
+      //   searchList.appendChild(li);
+
+      // })
     });
 }
 
@@ -141,6 +151,19 @@ function updateFireBaseItunesData(resultsObj) {
     itunesSearchResults: resultsObj,
     dateAdded: firebase.database.ServerValue.TIMESTAMP
   });
+}
+
+function displayTopSearches(resultsObj) {
+  // $(".iTunesPreview").empty();
+
+  var tBody = $(".topSearches");
+  var tRow = $("<tr>");
+
+  var topSearchNameDiv = $("<td>").text(resultsObj);
+  // var topSearchCountDiv = $("<td>").text(resultsObj.timesSearched)
+ 
+  tRow.append(topSearchNameDiv);
+  tBody.append(tRow);
 }
 
 function displayAlbumInfo(resultsObj) {
@@ -218,6 +241,7 @@ function getSearchInfo() {
   console.log("getSearchInfo function called");
   event.preventDefault();
   $(".iTunesPreview").empty(); // * clears out Album Info display on new search
+  $(".topSearches").empty();
   var artistInput = $("#textarea1")
     .val()
     .trim();
