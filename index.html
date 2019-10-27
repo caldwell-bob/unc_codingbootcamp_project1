@@ -19,7 +19,7 @@
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-app.js"></script>
- 
+
   <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-database.js"></script>
 
   <script src="assets/javascript/app.js"></script>
@@ -38,7 +38,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
-     
+
       </ul>
 
     </div>
@@ -46,7 +46,7 @@
 
   <div class="container">
     <div class="row inputs">
-      <form class="col s6" >
+      <form class="col s6">
         <div class="row">
           <div class="input-field col s6">
             <textarea id="textarea1" class="materialize-textarea"></textarea>
@@ -55,31 +55,31 @@
         </div>
       </form>
     </div>
-    <button class = "btn"> Submit </button> 
+    <button class="btn"> Submit </button>
 
-  <div class="row">
-<div class="col-12  artistInfo">
-<h3 id = "artist-info">Album Info</h3>
-<table class="table">
-        <thead>
-          <tr>
-            <!-- The scope attribute specifies that this is a header for a column -->
-            <th scope="col">Artwork</th>
-            <th scope="col">Track Name</th>
-            <th scope="col">Preview URL</th>
-          </tr>
-        </thead>
-        <tbody class="iTunesPreview">
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <!-- Insert additional movie rows here -->
-        </tbody>
-      </table>
-</div>
-<!-- <div class="col-1 blank">
+    <div class="row">
+      <div class="col-12  artistInfo">
+        <h3 id="artist-info">Album Info</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <!-- The scope attribute specifies that this is a header for a column -->
+              <th scope="col">Artwork</th>
+              <th scope="col">Track Name</th>
+              <th scope="col">Preview URL</th>
+            </tr>
+          </thead>
+          <tbody class="iTunesPreview">
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <!-- Insert additional movie rows here -->
+          </tbody>
+        </table>
+      </div>
+      <!-- <div class="col-1 blank">
 
 </div> -->
 
@@ -109,8 +109,8 @@
       </div>
       <div class="col-1 blank">
 
-    </div>
-    <!-- <div class="col-4 youtubeDisplay">
+      </div>
+      <!-- <div class="col-4 youtubeDisplay">
       <h3 id="youtube">Click to Play a Song!</h3>
           <table class="table">
               <thead>
@@ -131,25 +131,24 @@
               </tbody>
             </table>
           </div> -->
-          <div class="col-4 searchbox">
-                <h3 id = "recent-searches">Recent Searches:</h3>
-                <!-- <div class="row">
-                        <div class="col-12 recentsearches">
-            
-                            </div>
-                </div> -->
-                  </div>
+      <div class="col-4 searchbox">
+        <h3 id="recent-searches">Top Searches:</h3>
+        <div id="search-filler-div">
+          <ol id="searchList"></ol>
+        </div>
+
+      </div>
 
     </div>
   </div>
 
   <!-- Divs establishing background notes -->
-    
-<div class="note-1">
+
+  <div class="note-1">
     &#9835; &#9833;
   </div>
   <div class="note-2">
-    &#9833; 
+    &#9833;
   </div>
   <div class="note-3">
     &#9839; &#9834;
@@ -158,10 +157,10 @@
     &#9834;
   </div>
   <div class="note-5">
-      &#9836; &#9834; &#9833; 
+    &#9836; &#9834; &#9833;
   </div>
   <div class="note-6">
-      &#9836;
+    &#9836;
   </div>
 
   <!-- </div> -->
