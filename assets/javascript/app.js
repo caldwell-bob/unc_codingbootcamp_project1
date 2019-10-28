@@ -17,120 +17,48 @@ var database = firebase.database();
 var searchRef = database.ref("/searches");
 var resultsTallyArray = [];
 
-function compare(a, b) {
-  const tallyA = a.timesSearched;
-  const tallyB = b.timesSearched;
-
-  let comparison = 0;
-  if (tallyA > tallyB) {
-    comparison = 1;
-  } else if (tallyA < tallyB) {
-    comparison = -1;
-  }
-  return comparison * -1;
-}
-
-function countTEST(myArray) {
-  // array_elements = ["a", "b", "c", "d", "e", "a", "b", "c", "f", "g", "h", "h", "h", "e", "a"];
-
-  myArray.sort();
-
-  var current = null;
-  var cnt = 0;
-  for (var i = 0; i < myArray.length; i++) {
-    if (myArray[i] != current) {
-      if (cnt > 0) {
-        document.write(current + " comes --> " + cnt / 3 + " times<br>");
-      }
-      current = myArray[i];
-      cnt = 1;
-    } else {
-      cnt++;
-    }
-  }
-  if (cnt > 0) {
-    document.write(current + " comes when --> " + cnt / 3 + " times");
-  }
-}
-
-// function compare(a, b) {
-//   // const genreA = a.genre.toUpperCase();
-//   // const genreB = b.genre.toUpperCase();
-
-//   let comparison = 0;
-//   if (genreA > genreB) {
-//     comparison = 1;
-//   } else if (genreA < genreB) {
-//     comparison = -1;
-//   }
-//   return comparison;
-// }
 
 function count(myArray) {
-  console.log("in count");
-  console.log("myArray is type: " + typeof myArray);
-
   var counts = {};
   var bandName = "";
+  // * This creates counts objects w bandname, searchCounter
   myArray.forEach(function(x) {
     counts[x] = (counts[x] || 0) + 1;
   });
-  // console.log(counts);
-  console.log(counts);
-  console.log(counts.Cake);
 
+  // * Grabs property name of the object (bandNames)
   var countsProperties = Object.getOwnPropertyNames(counts).sort();
   countsProperties.sort();
-
-  console.log("countsProperties: " + countsProperties);
-
+  // * Grabs bandName to use to get thier count from counts
   for (var i = 0; i < countsProperties.length; i++) {
     bandName = countsProperties[i];
-
     console.log(bandName + ": " + counts[bandName]);
   }
-  // console.log(counts.sort(compare));
-  // console.log(counts)
-
+  
   // ! In order to sort the data, I need to move it out of the object and into an array
   var sortable = [];
   for (var name in counts) {
     sortable.push([name, counts[name]]);
   }
-
+  // * sort the array by search count, order by desc
   sortable.sort(function(a, b) {
     return (a[1] - b[1]) * -1;
   });
 
-  console.log("after sortable.sort");
-  console.log(sortable);
-  var tmpRec = sortable[0];
-  console.log(typeof tmpRec);
-  console.log(tmpRec[1]);
-  console.log(Object.getOwnPropertyNames(sortable[0]).sort());
-
-  var topFiveCounter = 0;
+  // * loop through array and display top 5 searchs via call to displayTopSearches()
   for (var i=0; i < sortable.length; i ++) {
-    topFiveCounter =+ 1;
     tmpRec = sortable[i];
-    console.log(tmpRec[0] + ": " + tmpRec[1]/3);
+    console.log(tmpRec[0] + ": " + tmpRec[1]/3);  // * dividing by 3 since each search adds 3 songs to the DB
     displayTopSearches(tmpRec);
 
     if (i == 4) {
       break;
     }
-
   }
-
-
-
-  // $.each(myArray, function(index, value){
-  //   console.log( index + ": " + value);
-  // });
 }
 
 function searchStats() {
-  console.log("searchStats function called");
+  // console.log("searchStats function called");
   // * grab a snapshot of the search results from DB
   return firebase
     .database()
@@ -150,86 +78,14 @@ function searchStats() {
           searchStatsResults[searchIds[i]].itunesSearchResults.artistName
         );
       }
-      // * TODO calculate top 5 most searches and toss into array
-      // * Loop through array and output to Recent Seaches - Artist Name | Number of Searches
-      // * create an array of objects of top 5 searches
       searchedArtistArray.sort();
-      console.log("searchedArtistArray is type: " + typeof searchedArtistArray);
-      count(searchedArtistArray);
-
-      // // * Tally Mode
-      // var current = null;
-      // var counter = 0;
-      // for (var i = 0; i < searchedArtistArray.length; i++) {
-      //   var searchResultsTally = {
-      //     name: "",
-      //     timesSearched: 0
-      //   };
-      //   if (searchedArtistArray[i] != current) {
-      //     if (counter > 0) {
-      //       // document.write(current + " comes --> " + counter + " times<br>");
-      //       // console.log("First If/Then " + current + " : " + counter + " times");
-      //       searchResultsTally.name = current;
-      //       searchResultsTally.timesSearched = counter;
-      //       tempObj = searchResultsTally;
-      //       // console.log(tempObj);
-      //       resultsTallyArray.push(tempObj);
-      //     }
-      //     current = searchedArtistArray[i];
-      //     searchResultsTally.name = current;
-      //     searchResultsTally.timesSearched = counter;
-      //     tempObj = searchResultsTally;
-      //     resultsTallyArray.push(tempObj);
-
-      //     counter = 1;
-      //   } else {
-      //     counter++;
-      //   }
-      // }
-
-      // var sortedArray = resultsTallyArray.sort(compare);
-
-      // var topFiveArray = [];
-      // var pushedCounter = 0;
-
-      // // TODO need to address when starting w no data (sortedArray.length < 5)
-      // for (var i = 0; i < sortedArray.length; i++){
-      //   key = Object.keys(sortedArray)[i];
-      //   name = sortedArray[key].name;
-      //   spacer = " searched " ;
-      //   timesSearched = sortedArray[i].timesSearched;
-      //   record = name + spacer + timesSearched + " times";
-      //   console.log("record: " + record);
-
-      //   var resultsObj = {
-      //     name: name,
-      //     timesSearched: timesSearched,
-      //   }
-      //   console.log(resultsObj)
-
-      //   if (topFiveArray.includes(record)) {
-      //     console.log(resultsObj.name + " is a duplicate");
-      //   } else {
-      //     topFiveArray.push(record);
-      //     pushedCounter += 1;
-      //   }
-
-      //   if (pushedCounter === 5) {
-      //     break;
-      //   }
-      // }
-
-      // console.log("length of topFiveArray: " + topFiveArray.length);
-
-      // $(".topSearches").empty();
-      // for (var i = 0; i < topFiveArray.length; i++) {
-      //   console.log(topFiveArray[i]);
-      //   displayTopSearches(topFiveArray[i]);
-      // }
+      // * send searchedArtistArray to count()
+      count(searchedArtistArray);     
     });
 }
 
 function updateFireBaseItunesData(resultsObj) {
+  // * writing the itunesSearchResults to the DB = we use this to track artist searched later
   database.ref("/searches").push({
     itunesSearchResults: resultsObj,
     dateAdded: firebase.database.ServerValue.TIMESTAMP
@@ -237,8 +93,8 @@ function updateFireBaseItunesData(resultsObj) {
 }
 
 function displayTopSearches(resultsObj) {
-  // $(".iTunesPreview").empty();
-
+  // * Function to display the searched artist info
+ 
   var tBody = $(".topSearches");
   var tRow = $("<tr>");
 
@@ -250,7 +106,7 @@ function displayTopSearches(resultsObj) {
 }
 
 function displayAlbumInfo(resultsObj) {
-  // $(".iTunesPreview").empty();
+  // * Function to display some random artists song to preview
 
   var tBody = $(".iTunesPreview");
   var tRow = $("<tr>");
@@ -271,6 +127,8 @@ function displayAlbumInfo(resultsObj) {
 }
 
 function callItunesApi(search) {
+  // * Calls iTunes API to obtain data for Songs to Preview section
+  // * said data to be stored in the db
   var ituneSettings = {
     async: true,
     crossDomain: true,
@@ -312,56 +170,13 @@ function callItunesApi(search) {
       itunesObj.artworkUrl100 = resultsArray[x].artworkUrl100;
 
       itunesObjArray.push(itunesObj);
-      console.log(itunesObj.trackName);
+      // console.log(itunesObj.trackName);
       updateFireBaseItunesData(itunesObj);
       displayAlbumInfo(itunesObj);
     }
   });
 }
 
-function getSearchInfo() {
-  console.log("getSearchInfo function called");
-  event.preventDefault();
-  $(".iTunesPreview").empty(); // * clears out Album Info display on new search
-  $(".topSearches").empty();
-  var artistInput = $("#textarea1")
-    .val()
-    .trim();
-
-  console.log(artistInput);
-  callItunesApi(artistInput);
-  searchStats();
-  // console.log(zipCode);
-  // $("#textarea1").val("");
-  var queryURL =
-    "https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&keyword=" +
-    artistInput +
-    "&apikey=VNUkdWcssRsgC8X8Vg617XiGSpQQYPfV";
-
-  $.ajax({
-    type: "GET",
-    url: queryURL,
-    async: true,
-    dataType: "json",
-    success: function(json) {
-      console.log(json);
-
-      // Where we added changes
-      // Checks is json._embedded is array or undefined
-      if (json._embedded) {
-        // array route
-        console.log("has shows");
-        // send array argument
-        printShowsToPage(json._embedded);
-      } else {
-        // undefined route
-        console.log("no shows");
-        // sends false argument
-        printShowsToPage(false);
-      }
-    }
-  });
-}
 function printShowsToPage(shows) {
   if (!shows) {
     console.log("Array does not exist for shows - no upcoming shows");
@@ -404,4 +219,49 @@ function printShowsToPage(shows) {
     }
   }
 }
+
+function getSearchInfo() {
+  console.log("getSearchInfo function called");
+  event.preventDefault();
+  $(".iTunesPreview").empty(); // * clears out Album Info display on new search
+  $(".topSearches").empty();
+  var artistInput = $("#textarea1")
+    .val()
+    .trim();
+
+  console.log(artistInput);
+  callItunesApi(artistInput);
+  searchStats();
+  
+  var queryURL =
+    "https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&keyword=" +
+    artistInput +
+    "&apikey=VNUkdWcssRsgC8X8Vg617XiGSpQQYPfV";
+
+  $.ajax({
+    type: "GET",
+    url: queryURL,
+    async: true,
+    dataType: "json",
+    success: function(json) {
+      console.log(json);
+
+      // Where we added changes
+      // Checks is json._embedded is array or undefined
+      if (json._embedded) {
+        // array route
+        console.log("has shows");
+        // send array argument
+        printShowsToPage(json._embedded);
+      } else {
+        // undefined route
+        console.log("no shows");
+        // sends false argument
+        printShowsToPage(false);
+      }
+    }
+  });
+}
+
+
 $(document).on("click", ".btn", getSearchInfo);
