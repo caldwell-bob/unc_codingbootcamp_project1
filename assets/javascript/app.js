@@ -17,7 +17,7 @@ var database = firebase.database();
 var searchRef = database.ref("/searches");
 var resultsTallyArray = [];
 
-function compare(a,b) {
+function compare(a, b) {
   const tallyA = a.timesSearched;
   const tallyB = b.timesSearched;
 
@@ -30,7 +30,6 @@ function compare(a,b) {
   return comparison * -1;
 }
 
-
 function countTEST(myArray) {
   // array_elements = ["a", "b", "c", "d", "e", "a", "b", "c", "f", "g", "h", "h", "h", "e", "a"];
 
@@ -39,29 +38,95 @@ function countTEST(myArray) {
   var current = null;
   var cnt = 0;
   for (var i = 0; i < myArray.length; i++) {
-      if (myArray[i] != current) {
-          if (cnt > 0) {
-              document.write(current + ' comes --> ' + cnt/3 + ' times<br>');
-          }
-          current = myArray[i];
-          cnt = 1;
-      } else {
-          cnt++;
+    if (myArray[i] != current) {
+      if (cnt > 0) {
+        document.write(current + " comes --> " + cnt / 3 + " times<br>");
       }
+      current = myArray[i];
+      cnt = 1;
+    } else {
+      cnt++;
+    }
   }
   if (cnt > 0) {
-      document.write(current + ' comes when --> ' + cnt/3 + ' times');
+    document.write(current + " comes when --> " + cnt / 3 + " times");
   }
-
 }
+
+// function compare(a, b) {
+//   // const genreA = a.genre.toUpperCase();
+//   // const genreB = b.genre.toUpperCase();
+
+//   let comparison = 0;
+//   if (genreA > genreB) {
+//     comparison = 1;
+//   } else if (genreA < genreB) {
+//     comparison = -1;
+//   }
+//   return comparison;
+// }
 
 function count(myArray) {
   console.log("in count");
+  console.log("myArray is type: " + typeof myArray);
+
   var counts = {};
-  myArray.forEach(function(x) { counts[x] = (counts[x] || 0)+1; });
+  var bandName = "";
+  myArray.forEach(function(x) {
+    counts[x] = (counts[x] || 0) + 1;
+  });
+  // console.log(counts);
   console.log(counts);
+  console.log(counts.Cake);
+
+  var countsProperties = Object.getOwnPropertyNames(counts).sort();
+  countsProperties.sort();
+
+  console.log("countsProperties: " + countsProperties);
+
+  for (var i = 0; i < countsProperties.length; i++) {
+    bandName = countsProperties[i];
+
+    console.log(bandName + ": " + counts[bandName]);
+  }
+  // console.log(counts.sort(compare));
+  // console.log(counts)
+
+  // ! In order to sort the data, I need to move it out of the object and into an array
+  var sortable = [];
+  for (var name in counts) {
+    sortable.push([name, counts[name]]);
+  }
+
+  sortable.sort(function(a, b) {
+    return (a[1] - b[1]) * -1;
+  });
+
+  console.log("after sortable.sort");
+  console.log(sortable);
+  var tmpRec = sortable[0];
+  console.log(typeof tmpRec);
+  console.log(tmpRec[1]);
+  console.log(Object.getOwnPropertyNames(sortable[0]).sort());
+
+  var topFiveCounter = 0;
+  for (var i=0; i < sortable.length; i ++) {
+    topFiveCounter =+ 1;
+    tmpRec = sortable[i];
+    console.log(tmpRec[0] + ": " + tmpRec[1]/3);
+    displayTopSearches(tmpRec);
+
+    if (i == 4) {
+      break;
+    }
+
+  }
 
 
+
+  // $.each(myArray, function(index, value){
+  //   console.log( index + ": " + value);
+  // });
 }
 
 function searchStats() {
@@ -74,6 +139,7 @@ function searchStats() {
     .then(function(snapshot) {
       var tempObj = {}; // ? do I really need this
       var searchedArtistArray = [];
+
       // * Grabs snapshot of DB
       var searchStatsResults = snapshot.val();
       // * This grabs the db record IDs and puts into searchIds array
@@ -88,82 +154,78 @@ function searchStats() {
       // * Loop through array and output to Recent Seaches - Artist Name | Number of Searches
       // * create an array of objects of top 5 searches
       searchedArtistArray.sort();
+      console.log("searchedArtistArray is type: " + typeof searchedArtistArray);
       count(searchedArtistArray);
-      
 
-      // * Tally Mode
-      var current = null;
-      var counter = 0;
-      for (var i = 0; i < searchedArtistArray.length; i++) {
-        var searchResultsTally = {
-          name: "",
-          timesSearched: 0
-        };
-        if (searchedArtistArray[i] != current) {
-          if (counter > 0) {
-            // document.write(current + " comes --> " + counter + " times<br>");
-            // console.log("First If/Then " + current + " : " + counter + " times");
-            searchResultsTally.name = current;
-            searchResultsTally.timesSearched = counter;
-            tempObj = searchResultsTally;
-            // console.log(tempObj);
-            resultsTallyArray.push(tempObj);
-          }
-          current = searchedArtistArray[i];
-          searchResultsTally.name = current;
-          searchResultsTally.timesSearched = counter;
-          tempObj = searchResultsTally;
-          resultsTallyArray.push(tempObj)
+      // // * Tally Mode
+      // var current = null;
+      // var counter = 0;
+      // for (var i = 0; i < searchedArtistArray.length; i++) {
+      //   var searchResultsTally = {
+      //     name: "",
+      //     timesSearched: 0
+      //   };
+      //   if (searchedArtistArray[i] != current) {
+      //     if (counter > 0) {
+      //       // document.write(current + " comes --> " + counter + " times<br>");
+      //       // console.log("First If/Then " + current + " : " + counter + " times");
+      //       searchResultsTally.name = current;
+      //       searchResultsTally.timesSearched = counter;
+      //       tempObj = searchResultsTally;
+      //       // console.log(tempObj);
+      //       resultsTallyArray.push(tempObj);
+      //     }
+      //     current = searchedArtistArray[i];
+      //     searchResultsTally.name = current;
+      //     searchResultsTally.timesSearched = counter;
+      //     tempObj = searchResultsTally;
+      //     resultsTallyArray.push(tempObj);
 
+      //     counter = 1;
+      //   } else {
+      //     counter++;
+      //   }
+      // }
 
-          counter = 1;
-        } else {
-          counter++;
-        }
-      }
+      // var sortedArray = resultsTallyArray.sort(compare);
 
-      var sortedArray = resultsTallyArray.sort(compare);
-  
-      var topFiveArray = [];
-      var pushedCounter = 0;
-      
-      // TODO need to address when starting w no data (sortedArray.length < 5)
-      for (var i = 0; i < sortedArray.length; i++){ 
-        key = Object.keys(sortedArray)[i];
-        name = sortedArray[key].name;
-        spacer = " searched " ;
-        timesSearched = sortedArray[i].timesSearched;
-        record = name + spacer + timesSearched + " times";
-        console.log("record: " + record);
-        
-        
+      // var topFiveArray = [];
+      // var pushedCounter = 0;
 
-        var resultsObj = {
-          name: name,
-          timesSearched: timesSearched,
-        }
-        console.log(resultsObj)
+      // // TODO need to address when starting w no data (sortedArray.length < 5)
+      // for (var i = 0; i < sortedArray.length; i++){
+      //   key = Object.keys(sortedArray)[i];
+      //   name = sortedArray[key].name;
+      //   spacer = " searched " ;
+      //   timesSearched = sortedArray[i].timesSearched;
+      //   record = name + spacer + timesSearched + " times";
+      //   console.log("record: " + record);
 
-        if (topFiveArray.includes(record)) {
-          console.log(resultsObj.name + " is a duplicate");
-        } else {
-          topFiveArray.push(record);
-          pushedCounter += 1;
-        }
+      //   var resultsObj = {
+      //     name: name,
+      //     timesSearched: timesSearched,
+      //   }
+      //   console.log(resultsObj)
 
-        if (pushedCounter === 5) {
-          break;
-        }
-      }
+      //   if (topFiveArray.includes(record)) {
+      //     console.log(resultsObj.name + " is a duplicate");
+      //   } else {
+      //     topFiveArray.push(record);
+      //     pushedCounter += 1;
+      //   }
 
-      console.log("length of topFiveArray: " + topFiveArray.length);
+      //   if (pushedCounter === 5) {
+      //     break;
+      //   }
+      // }
 
-      $(".topSearches").empty();
-      for (var i = 0; i < topFiveArray.length; i++) {
-        console.log(topFiveArray[i]);
-        displayTopSearches(topFiveArray[i]);
-      }
+      // console.log("length of topFiveArray: " + topFiveArray.length);
 
+      // $(".topSearches").empty();
+      // for (var i = 0; i < topFiveArray.length; i++) {
+      //   console.log(topFiveArray[i]);
+      //   displayTopSearches(topFiveArray[i]);
+      // }
     });
 }
 
@@ -180,10 +242,10 @@ function displayTopSearches(resultsObj) {
   var tBody = $(".topSearches");
   var tRow = $("<tr>");
 
-  var topSearchNameDiv = $("<td>").text(resultsObj);
-  // var topSearchCountDiv = $("<td>").text(resultsObj.timesSearched)
- 
-  tRow.append(topSearchNameDiv);
+  var topSearchNameDiv = $("<td>").text(resultsObj[0]);
+  var topSearchCountDiv = $("<td>").text(resultsObj[1]/3);
+
+  tRow.append(topSearchNameDiv,topSearchCountDiv);
   tBody.append(tRow);
 }
 
@@ -207,7 +269,6 @@ function displayAlbumInfo(resultsObj) {
   tRow.append(artWorkDiv, trackNameDiv, previewUrlDiv);
   tBody.append(tRow);
 }
-
 
 function callItunesApi(search) {
   var ituneSettings = {
@@ -285,16 +346,16 @@ function getSearchInfo() {
     success: function(json) {
       console.log(json);
 
-     // Where we added changes
+      // Where we added changes
       // Checks is json._embedded is array or undefined
       if (json._embedded) {
         // array route
-        console.log('has shows')
+        console.log("has shows");
         // send array argument
-        printShowsToPage(json._embedded)
+        printShowsToPage(json._embedded);
       } else {
         // undefined route
-        console.log('no shows')
+        console.log("no shows");
         // sends false argument
         printShowsToPage(false);
       }
@@ -303,20 +364,20 @@ function getSearchInfo() {
 }
 function printShowsToPage(shows) {
   if (!shows) {
-    console.log('Array does not exist for shows - no upcoming shows');
+    console.log("Array does not exist for shows - no upcoming shows");
     // print to screen no shows line
     $(".td").empty();
     var tBody = $(".td");
     var tRow = $("<tr>");
     var noShowsRow = $("<td>").text(
-      'There are no upcoming shows for this artist'
+      "There are no upcoming shows for this artist"
     );
     tRow.append(noShowsRow);
     tBody.append(tRow);
   } else {
     // Got back expected show array
-    
-    console.log('print upcoming shows');
+
+    console.log("print upcoming shows");
     $(".td").empty();
     for (var i = 0; i < shows.events.length; i++) {
       if (i >= 5) {
@@ -337,9 +398,7 @@ function printShowsToPage(shows) {
       var stateNameDiv = $("<td>").text(
         shows.events[i]._embedded.venues[0].state.name
       );
-      var dateNameDiv = $("<td>").text(
-        shows.events[i].dates.start.localDate
-      );
+      var dateNameDiv = $("<td>").text(shows.events[i].dates.start.localDate);
       tRow.append(venueNameDiv, cityNameDiv, stateNameDiv, dateNameDiv);
       tBody.append(tRow);
     }
