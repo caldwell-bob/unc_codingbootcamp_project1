@@ -120,7 +120,7 @@ function displayAlbumInfo(resultsObj) {
   previewUrlDiv.html(
     '<a href="' + resultsObj.previewUrl + '">Click to Preview Song!</a>'
   );
-  $("<a>").attr("target", "blank");
+  $("a").attr("target", "blank");
   artWorkDiv.attr("src", resultsObj.artworkUrl100);
   tRow.append(artWorkDiv, trackNameDiv, previewUrlDiv);
   tBody.append(tRow);
